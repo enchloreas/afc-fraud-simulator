@@ -53,6 +53,11 @@ export function Simulator() {
     setIsProcessing(false)
   }, [])
 
+  const handleVerificationComplete = useCallback(() => {
+    // Update terminal to approved when identity verification succeeds
+    setTerminalState("approved")
+  }, [])
+
   const isRunning = phase !== "idle" && phase !== "complete"
 
   return (
@@ -119,6 +124,7 @@ export function Simulator() {
           <MobilePanel
             mobile={simulatorOutput?.panel_right_mobile || null}
             isVisible={phase === "mobile" || phase === "complete"}
+            onVerificationComplete={handleVerificationComplete}
           />
         </div>
       </main>
