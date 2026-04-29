@@ -1,6 +1,6 @@
 "use client"
 
-import { useEffect, useState } from "react"
+import { useEffect, useState, useRef, useCallback } from "react"
 import type { ReasoningStep, PanelCenterReasoning } from "@/lib/types"
 import { cn } from "@/lib/utils"
 import { CheckCircle2, XCircle, AlertTriangle, Loader2 } from "lucide-react"
@@ -16,7 +16,14 @@ export function ReasoningPanel({ reasoning, isProcessing, isComplete, onComplete
   const [visibleSteps, setVisibleSteps] = useState<ReasoningStep[]>([])
   const [currentStep, setCurrentStep] = useState(0)
   const [showScore, setShowScore] = useState(false)
-  const [hasStartedProcessing, setHasStartedProcessing] = useState(false)
+  const intervalRef = useRef<NodeJS.Timeout | null>(null)
+  const hasStartedRef = useRef(false)
+  const onCompleteRef = useRef(onComplete)
+
+  // Keep onComplete ref updated
+  useEffect(() => {
+    onCompleteRef.current = onComplete
+  }, [onComplete])
 
   // Reset only when reasoning data becomes null (reset button clicked)
   useEffect(() => {
@@ -24,38 +31,50 @@ export function ReasoningPanel({ reasoning, isProcessing, isComplete, onComplete
       setVisibleSteps([])
       setCurrentStep(0)
       setShowScore(false)
-      setHasStartedProcessing(false)
+      hasStartedRef.current = false
+      if (intervalRef.current) {
+        clearInterval(intervalRef.current)
+        intervalRef.current = null
+      }
     }
   }, [reasoning])
 
   // Handle step animation when processing starts
   useEffect(() => {
-    if (!reasoning || !isProcessing || hasStartedProcessing) {
+    if (!reasoning || !isProcessing) {
       return
     }
 
-    // Mark that we've started processing this reasoning
-    setHasStartedProcessing(true)
+    // Only start animation once
+    if (hasStartedRef.current) {
+      return
+    }
+    hasStartedRef.current = true
 
     const steps = reasoning.steps
     let stepIndex = 0
 
-    const interval = setInterval(() => {
+    intervalRef.current = setInterval(() => {
       if (stepIndex < steps.length) {
         setVisibleSteps((prev) => [...prev, { ...steps[stepIndex], status: "complete" }])
         setCurrentStep(stepIndex + 1)
         stepIndex++
       } else {
-        clearInterval(interval)
+        if (intervalRef.current) {
+          clearInterval(intervalRef.current)
+          intervalRef.current = null
+        }
         setTimeout(() => {
           setShowScore(true)
-          onComplete?.()
+          onCompleteRef.current?.()
         }, 300)
       }
     }, 400)
 
-    return () => clearInterval(interval)
-  }, [reasoning, isProcessing, hasStartedProcessing, onComplete])
+    return () => {
+      // Don't clear interval on cleanup - let it finish
+    }
+  }, [reasoning, isProcessing])
 
   const getStepIcon = (step: ReasoningStep) => {
     if (step.status === "processing") {
