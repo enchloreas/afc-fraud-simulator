@@ -31,8 +31,9 @@ export function Simulator() {
     setTimeout(() => setTerminalState("authorizing"), 1600)
     setTimeout(() => setTerminalState("processing"), 2400)
     setTimeout(() => {
-      const isApproved = output.panel_center_reasoning.verdict_color === "green"
-      setTerminalState(isApproved ? "approved" : "declined")
+      const verdictColor = output.panel_center_reasoning.verdict_color
+      // Yellow verdict shows as "processing" state on terminal (pending review)
+      setTerminalState(verdictColor === "green" ? "approved" : verdictColor === "yellow" ? "processing" : "declined")
       setPhase("reasoning")
     }, 3200)
   }, [selectedScenario])

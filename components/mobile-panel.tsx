@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react"
 import type { PanelRightMobile } from "@/lib/types"
 import { cn } from "@/lib/utils"
-import { Shield, CheckCircle, Phone, ChevronRight, Wifi, Battery, Signal } from "lucide-react"
+import { Shield, CheckCircle, Phone, ChevronRight, Wifi, Battery, Signal, AlertTriangle, Fingerprint, Loader2 } from "lucide-react"
 
 interface MobilePanelProps {
   mobile: PanelRightMobile | null
@@ -13,6 +13,8 @@ interface MobilePanelProps {
 export function MobilePanel({ mobile, isVisible }: MobilePanelProps) {
   const [showContent, setShowContent] = useState(false)
   const [currentTime, setCurrentTime] = useState("")
+  const [verificationState, setVerificationState] = useState<"idle" | "verifying" | "verified">("idle")
+  const [showSuccess, setShowSuccess] = useState(false)
 
   useEffect(() => {
     const updateTime = () => {
@@ -29,10 +31,23 @@ export function MobilePanel({ mobile, isVisible }: MobilePanelProps) {
       setTimeout(() => setShowContent(true), 300)
     } else {
       setShowContent(false)
+      setVerificationState("idle")
+      setShowSuccess(false)
     }
   }, [isVisible])
 
   const isAlert = mobile?.view_type === "SECURITY_ALERT_VIEW"
+  const isVerification = mobile?.view_type === "IDENTITY_VERIFICATION_VIEW"
+
+  const handleVerifyIdentity = () => {
+    setVerificationState("verifying")
+    setTimeout(() => {
+      setVerificationState("verified")
+      setTimeout(() => {
+        setShowSuccess(true)
+      }, 500)
+    }, 2000)
+  }
 
   return (
     <div className="flex h-full flex-col">
@@ -90,11 +105,23 @@ export function MobilePanel({ mobile, isVisible }: MobilePanelProps) {
                       <div
                         className={cn(
                           "flex h-16 w-16 items-center justify-center rounded-full",
-                          isAlert ? "bg-red-500/20" : "bg-green-500/20"
+                          isAlert && "bg-red-500/20",
+                          isVerification && !showSuccess && "bg-yellow-500/20",
+                          (!isAlert && !isVerification) || showSuccess ? "bg-green-500/20" : ""
                         )}
                       >
-                        {isAlert ? (
+                        {showSuccess ? (
+                          <CheckCircle className="h-8 w-8 text-green-400" />
+                        ) : isAlert ? (
                           <Shield className="h-8 w-8 text-red-400" />
+                        ) : isVerification ? (
+                          verificationState === "verifying" ? (
+                            <Loader2 className="h-8 w-8 animate-spin text-yellow-400" />
+                          ) : verificationState === "verified" ? (
+                            <CheckCircle className="h-8 w-8 text-green-400" />
+                          ) : (
+                            <AlertTriangle className="h-8 w-8 text-yellow-400" />
+                          )
                         ) : (
                           <CheckCircle className="h-8 w-8 text-green-400" />
                         )}
@@ -106,26 +133,42 @@ export function MobilePanel({ mobile, isVisible }: MobilePanelProps) {
                       <h3
                         className={cn(
                           "mb-2 text-xl font-bold",
-                          isAlert ? "text-red-400" : "text-white"
+                          showSuccess ? "text-green-400" : isAlert ? "text-red-400" : isVerification ? "text-yellow-400" : "text-white"
                         )}
                       >
-                        {mobile.title}
+                        {showSuccess ? "Payment Approved" : verificationState === "verifying" ? "Verifying..." : verificationState === "verified" ? "Identity Verified" : mobile.title}
                       </h3>
-                      <p className="text-sm leading-relaxed text-white/80">{mobile.description}</p>
+                      <p className="text-sm leading-relaxed text-white/80">
+                        {showSuccess ? `€${mobile.description.includes("4,999") ? "4,999" : mobile.description.split("€")[1]?.split(" ")[0] || "4,999"} at CryptoGems Exchange` : verificationState === "verifying" ? "Please wait while we verify your identity..." : verificationState === "verified" ? "Your identity has been confirmed. Processing transaction..." : mobile.description}
+                      </p>
                     </div>
 
                     {/* Main Action Button */}
-                    <button
-                      className={cn(
-                        "flex w-full items-center justify-center gap-2 rounded-xl py-3.5 font-semibold transition-all",
-                        isAlert
-                          ? "bg-red-500 text-white hover:bg-red-600"
-                          : "bg-white text-[#002E6E] hover:bg-white/90"
-                      )}
-                    >
-                      {mobile.main_action.type === "call" && <Phone className="h-4 w-4" />}
-                      {mobile.main_action.label}
-                    </button>
+                    {!showSuccess && (
+                      <button
+                        onClick={mobile.main_action.type === "verify" ? handleVerifyIdentity : undefined}
+                        disabled={verificationState !== "idle"}
+                        className={cn(
+                          "flex w-full items-center justify-center gap-2 rounded-xl py-3.5 font-semibold transition-all",
+                          isAlert
+                            ? "bg-red-500 text-white hover:bg-red-600"
+                            : isVerification
+                              ? "bg-yellow-500 text-black hover:bg-yellow-400 disabled:opacity-50"
+                              : "bg-white text-[#002E6E] hover:bg-white/90"
+                        )}
+                      >
+                        {mobile.main_action.type === "call" && <Phone className="h-4 w-4" />}
+                        {mobile.main_action.type === "verify" && <Fingerprint className="h-4 w-4" />}
+                        {verificationState === "verifying" ? "Verifying..." : verificationState === "verified" ? "Verified!" : mobile.main_action.label}
+                      </button>
+                    )}
+                    {showSuccess && (
+                      <button
+                        className="flex w-full items-center justify-center gap-2 rounded-xl bg-white py-3.5 font-semibold text-[#002E6E] transition-all hover:bg-white/90"
+                      >
+                        View Details
+                      </button>
+                    )}
 
                     {/* Upsell Block */}
                     <div className="mt-4 rounded-xl border border-white/20 bg-white/10 p-4">

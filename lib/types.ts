@@ -52,11 +52,11 @@ export interface UpsellBlock {
 
 export interface MainAction {
   label: string
-  type: "call" | "action"
+  type: "call" | "action" | "verify"
 }
 
 export interface PanelRightMobile {
-  view_type: "SUCCESS_VIEW" | "SECURITY_ALERT_VIEW"
+  view_type: "SUCCESS_VIEW" | "SECURITY_ALERT_VIEW" | "IDENTITY_VERIFICATION_VIEW"
   title: string
   description: string
   main_action: MainAction
