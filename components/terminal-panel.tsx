@@ -16,7 +16,7 @@ const terminalMessages: Record<TerminalState, string> = {
   insert_card: "Insert or Tap Card",
   reading_card: "Reading Card...",
   authorizing: "Authorizing...",
-  processing: "Processing Transaction",
+  processing: "PENDING REVIEW",
   approved: "APPROVED",
   declined: "DECLINED",
 }
@@ -27,7 +27,8 @@ export function TerminalPanel({ state, payload, onComplete }: TerminalPanelProps
 
   useEffect(() => {
     setDisplayState(state)
-    if (state === "approved" || state === "declined") {
+    // Show payload for approved, declined, or processing (pending review) states
+    if (state === "approved" || state === "declined" || state === "processing") {
       setTimeout(() => setShowPayload(true), 500)
     } else {
       setShowPayload(false)

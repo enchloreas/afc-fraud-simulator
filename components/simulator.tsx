@@ -31,8 +31,9 @@ export function Simulator() {
     setTimeout(() => setTerminalState("authorizing"), 1600)
     setTimeout(() => setTerminalState("processing"), 2400)
     setTimeout(() => {
-      const isApproved = output.panel_center_reasoning.verdict_color === "green"
-      setTerminalState(isApproved ? "approved" : "declined")
+      const verdictColor = output.panel_center_reasoning.verdict_color
+      // Yellow verdict shows as "processing" state on terminal (pending review)
+      setTerminalState(verdictColor === "green" ? "approved" : verdictColor === "yellow" ? "processing" : "declined")
       setPhase("reasoning")
     }, 3200)
   }, [selectedScenario])
@@ -50,6 +51,11 @@ export function Simulator() {
     setTerminalState("idle")
     setSimulatorOutput(null)
     setIsProcessing(false)
+  }, [])
+
+  const handleVerificationComplete = useCallback(() => {
+    // Update terminal to approved when identity verification succeeds
+    setTerminalState("approved")
   }, [])
 
   const isRunning = phase !== "idle" && phase !== "complete"
@@ -118,6 +124,7 @@ export function Simulator() {
           <MobilePanel
             mobile={simulatorOutput?.panel_right_mobile || null}
             isVisible={phase === "mobile" || phase === "complete"}
+            onVerificationComplete={handleVerificationComplete}
           />
         </div>
       </main>
