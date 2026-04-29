@@ -8,19 +8,32 @@ import { CheckCircle2, XCircle, AlertTriangle, Loader2 } from "lucide-react"
 interface ReasoningPanelProps {
   reasoning: PanelCenterReasoning | null
   isProcessing: boolean
+  isComplete?: boolean
   onComplete?: () => void
 }
 
-export function ReasoningPanel({ reasoning, isProcessing, onComplete }: ReasoningPanelProps) {
+export function ReasoningPanel({ reasoning, isProcessing, isComplete, onComplete }: ReasoningPanelProps) {
   const [visibleSteps, setVisibleSteps] = useState<ReasoningStep[]>([])
   const [currentStep, setCurrentStep] = useState(0)
   const [showScore, setShowScore] = useState(false)
 
+  // Reset only when reasoning data changes (new scenario selected)
   useEffect(() => {
-    if (!reasoning || !isProcessing) {
+    if (!reasoning) {
       setVisibleSteps([])
       setCurrentStep(0)
       setShowScore(false)
+    }
+  }, [reasoning])
+
+  // Handle step animation when processing starts
+  useEffect(() => {
+    if (!reasoning || !isProcessing) {
+      return
+    }
+
+    // Only start animation if we haven't already processed this reasoning
+    if (visibleSteps.length > 0) {
       return
     }
 
@@ -42,7 +55,7 @@ export function ReasoningPanel({ reasoning, isProcessing, onComplete }: Reasonin
     }, 400)
 
     return () => clearInterval(interval)
-  }, [reasoning, isProcessing])
+  }, [reasoning, isProcessing, visibleSteps.length, onComplete])
 
   const getStepIcon = (step: ReasoningStep) => {
     if (step.status === "processing") {
@@ -92,7 +105,7 @@ export function ReasoningPanel({ reasoning, isProcessing, onComplete }: Reasonin
 
       {/* Reasoning Steps */}
       <div className="flex-1 overflow-auto pr-2">
-        {visibleSteps.length === 0 && !isProcessing ? (
+        {visibleSteps.length === 0 && !isProcessing && !isComplete ? (
           <div className="flex h-full items-center justify-center">
             <div className="text-center">
               <div className="mx-auto mb-3 flex h-12 w-12 items-center justify-center rounded-full border-2 border-dashed border-slate-600">

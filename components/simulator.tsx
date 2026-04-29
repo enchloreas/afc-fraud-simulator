@@ -108,6 +108,7 @@ export function Simulator() {
           <ReasoningPanel
             reasoning={simulatorOutput?.panel_center_reasoning || null}
             isProcessing={phase === "reasoning"}
+            isComplete={phase === "complete"}
             onComplete={handleReasoningComplete}
           />
         </div>
