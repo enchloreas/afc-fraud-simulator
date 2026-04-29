@@ -16,26 +16,26 @@ export function ReasoningPanel({ reasoning, isProcessing, isComplete, onComplete
   const [visibleSteps, setVisibleSteps] = useState<ReasoningStep[]>([])
   const [currentStep, setCurrentStep] = useState(0)
   const [showScore, setShowScore] = useState(false)
+  const [hasStartedProcessing, setHasStartedProcessing] = useState(false)
 
-  // Reset only when reasoning data changes (new scenario selected)
+  // Reset only when reasoning data becomes null (reset button clicked)
   useEffect(() => {
     if (!reasoning) {
       setVisibleSteps([])
       setCurrentStep(0)
       setShowScore(false)
+      setHasStartedProcessing(false)
     }
   }, [reasoning])
 
   // Handle step animation when processing starts
   useEffect(() => {
-    if (!reasoning || !isProcessing) {
+    if (!reasoning || !isProcessing || hasStartedProcessing) {
       return
     }
 
-    // Only start animation if we haven't already processed this reasoning
-    if (visibleSteps.length > 0) {
-      return
-    }
+    // Mark that we've started processing this reasoning
+    setHasStartedProcessing(true)
 
     const steps = reasoning.steps
     let stepIndex = 0
@@ -55,7 +55,7 @@ export function ReasoningPanel({ reasoning, isProcessing, isComplete, onComplete
     }, 400)
 
     return () => clearInterval(interval)
-  }, [reasoning, isProcessing, visibleSteps.length, onComplete])
+  }, [reasoning, isProcessing, hasStartedProcessing, onComplete])
 
   const getStepIcon = (step: ReasoningStep) => {
     if (step.status === "processing") {
