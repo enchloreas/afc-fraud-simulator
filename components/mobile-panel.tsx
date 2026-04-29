@@ -8,9 +8,10 @@ import { Shield, CheckCircle, Phone, ChevronRight, Wifi, Battery, Signal, AlertT
 interface MobilePanelProps {
   mobile: PanelRightMobile | null
   isVisible: boolean
+  onVerificationComplete?: () => void
 }
 
-export function MobilePanel({ mobile, isVisible }: MobilePanelProps) {
+export function MobilePanel({ mobile, isVisible, onVerificationComplete }: MobilePanelProps) {
   const [showContent, setShowContent] = useState(false)
   const [currentTime, setCurrentTime] = useState("")
   const [verificationState, setVerificationState] = useState<"idle" | "verifying" | "verified">("idle")
@@ -45,6 +46,8 @@ export function MobilePanel({ mobile, isVisible }: MobilePanelProps) {
       setVerificationState("verified")
       setTimeout(() => {
         setShowSuccess(true)
+        // Notify parent that verification is complete so terminal can update
+        onVerificationComplete?.()
       }, 500)
     }, 2000)
   }
