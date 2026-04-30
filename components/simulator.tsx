@@ -273,14 +273,12 @@ export function Simulator() {
                 />
               )}
               {activeMobileTab === "reasoning" && (
-                <div className="flex h-full flex-col">
-                  <ReasoningPanel
-                    reasoning={simulatorOutput?.panel_center_reasoning || null}
-                    isProcessing={phase === "reasoning"}
-                    isComplete={phase === "complete"}
-                    onComplete={handleReasoningComplete}
-                  />
-                </div>
+                <ReasoningPanel
+                  reasoning={simulatorOutput?.panel_center_reasoning || null}
+                  isProcessing={phase === "reasoning"}
+                  isComplete={phase === "complete"}
+                  onComplete={handleReasoningComplete}
+                />
               )}
               {activeMobileTab === "mobile" && (
                 <MobilePanel
