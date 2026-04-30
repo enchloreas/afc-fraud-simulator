@@ -2,9 +2,10 @@
 
 > Anti-Fraud Control Intelligence Engine - A real-time transaction fraud detection demonstration for Aktia Bank
 
-![Next.js](https://img.shields.io/badge/Next.js-16-black?style=flat-square&logo=next.js)
+![Next.js](https://img.shields.io/badge/Next.js-16.2-black?style=flat-square&logo=next.js)
+![React](https://img.shields.io/badge/React-19.2-61DAFB?style=flat-square&logo=react)
 ![TypeScript](https://img.shields.io/badge/TypeScript-5.7-blue?style=flat-square&logo=typescript)
-![Tailwind CSS](https://img.shields.io/badge/Tailwind-4.0-38B2AC?style=flat-square&logo=tailwind-css)
+![Tailwind CSS](https://img.shields.io/badge/Tailwind-4.2-38B2AC?style=flat-square&logo=tailwind-css)
 ![License](https://img.shields.io/badge/License-MIT-green?style=flat-square)
 
 ## Overview
@@ -26,7 +27,7 @@ AFC Fraud Simulator is an interactive demonstration application that showcases h
 | **Local Purchase** | Normal purchase at Helsinki department store | Low (12/100) | Approved |
 | **Known Travel** | Purchase in Thailand with confirmed flight booking | Low (28/100) | Approved |
 | **Impossible Travel** | Helsinki to Thailand in 2 hours - no flight history | Critical (97/100) | Blocked |
-| **High Risk Merchant** | Large crypto purchase from offshore merchant | Medium (65/100) | Identity Verification Required |
+| **High Risk Merchant** | Large crypto purchase from offshore merchant | Medium (65/100) | Verify Identity or Report Fraud |
 
 ## Architecture
 
@@ -46,12 +47,14 @@ AFC Fraud Simulator is an interactive demonstration application that showcases h
 
 ### Technology Stack
 
-- **Framework**: Next.js 16 (App Router)
+- **Framework**: Next.js 16.2 (App Router)
+- **UI Library**: React 19.2
 - **Language**: TypeScript 5.7
-- **Styling**: Tailwind CSS 4.0
+- **Styling**: Tailwind CSS 4.2
 - **UI Components**: Radix UI + shadcn/ui
 - **Icons**: Lucide React
 - **State Management**: React Hooks
+- **Charts**: Recharts (for data visualization)
 
 ## Getting Started
 
