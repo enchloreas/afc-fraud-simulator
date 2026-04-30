@@ -67,6 +67,11 @@ export function Simulator() {
     setTerminalState("approved")
   }, [])
 
+  const handleFraudReport = useCallback(() => {
+    // Update terminal to declined when user reports fraud
+    setTerminalState("declined")
+  }, [])
+
   const isRunning = phase !== "idle" && phase !== "complete"
 
   return (
@@ -219,6 +224,8 @@ export function Simulator() {
                 mobile={simulatorOutput?.panel_right_mobile || null}
                 isVisible={phase === "mobile" || phase === "complete"}
                 onVerificationComplete={handleVerificationComplete}
+                onFraudReport={handleFraudReport}
+                terminalState={terminalState}
               />
             </div>
           </div>
@@ -266,27 +273,32 @@ export function Simulator() {
 
             {/* Tab Content */}
             <div className="min-h-0 flex-1 overflow-auto p-4">
-              {activeMobileTab === "terminal" && (
+              {/* Terminal Tab */}
+              <div className={activeMobileTab === "terminal" ? "block" : "hidden"}>
                 <TerminalPanel
                   state={terminalState}
                   payload={simulatorOutput?.panel_left_json || null}
                 />
-              )}
-              {activeMobileTab === "reasoning" && (
+              </div>
+              {/* Reasoning Tab - Always rendered to run analysis in background */}
+              <div className={activeMobileTab === "reasoning" ? "block" : "hidden"}>
                 <ReasoningPanel
                   reasoning={simulatorOutput?.panel_center_reasoning || null}
                   isProcessing={phase === "reasoning"}
                   isComplete={phase === "complete"}
                   onComplete={handleReasoningComplete}
                 />
-              )}
-              {activeMobileTab === "mobile" && (
+              </div>
+              {/* Mobile Tab */}
+              <div className={activeMobileTab === "mobile" ? "block" : "hidden"}>
                 <MobilePanel
                   mobile={simulatorOutput?.panel_right_mobile || null}
                   isVisible={phase === "mobile" || phase === "complete"}
                   onVerificationComplete={handleVerificationComplete}
+                  onFraudReport={handleFraudReport}
+                  terminalState={terminalState}
                 />
-              )}
+              </div>
             </div>
           </div>
         )}
