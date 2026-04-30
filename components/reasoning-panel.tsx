@@ -136,7 +136,7 @@ export function ReasoningPanel({ reasoning, isProcessing, isComplete, onComplete
       </div>
 
       {/* Reasoning Steps */}
-      <div className="flex-1 overflow-auto pr-2">
+      <div className="min-h-0 flex-1 overflow-auto pr-2">
         {visibleSteps.length === 0 && !isProcessing && !isComplete ? (
           <div className="flex h-full items-center justify-center">
             <div className="text-center">
@@ -188,7 +188,7 @@ export function ReasoningPanel({ reasoning, isProcessing, isComplete, onComplete
 
       {/* Risk Score */}
       {showScore && reasoning && (
-        <div className="mt-4 border-t border-slate-700 pt-4">
+        <div className="mt-4 shrink-0 border-t border-slate-700 pt-4">
           <div className="rounded-lg border border-slate-700 bg-slate-800/50 p-4">
             <div className="mb-3 flex items-center justify-between">
               <span className="text-sm font-medium text-slate-400">Risk Score</span>

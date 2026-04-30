@@ -265,7 +265,7 @@ export function Simulator() {
             </div>
 
             {/* Tab Content */}
-            <div className="flex-1 overflow-auto p-4">
+            <div className="min-h-0 flex-1 overflow-auto p-4">
               {activeMobileTab === "terminal" && (
                 <TerminalPanel
                   state={terminalState}
@@ -273,12 +273,14 @@ export function Simulator() {
                 />
               )}
               {activeMobileTab === "reasoning" && (
-                <ReasoningPanel
-                  reasoning={simulatorOutput?.panel_center_reasoning || null}
-                  isProcessing={phase === "reasoning"}
-                  isComplete={phase === "complete"}
-                  onComplete={handleReasoningComplete}
-                />
+                <div className="flex h-full flex-col">
+                  <ReasoningPanel
+                    reasoning={simulatorOutput?.panel_center_reasoning || null}
+                    isProcessing={phase === "reasoning"}
+                    isComplete={phase === "complete"}
+                    onComplete={handleReasoningComplete}
+                  />
+                </div>
               )}
               {activeMobileTab === "mobile" && (
                 <MobilePanel
