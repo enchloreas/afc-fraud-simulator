@@ -8,9 +8,14 @@ import { ScenarioSelector } from "./scenario-selector"
 import { Button } from "@/components/ui/button"
 import { scenarios, generateScenarioData } from "@/lib/scenarios"
 import type { TerminalState, SimulatorOutput } from "@/lib/types"
-import { Play, RotateCcw } from "lucide-react"
+import { Play, RotateCcw, Monitor, Smartphone } from "lucide-react"
+import { useIsMobile } from "@/components/ui/use-mobile"
+import { cn } from "@/lib/utils"
 
 type SimulatorPhase = "idle" | "terminal" | "reasoning" | "mobile" | "complete"
+
+type ViewMode = "desktop" | "mobile"
+type MobileTab = "terminal" | "reasoning" | "mobile"
 
 export function Simulator() {
   const [selectedScenario, setSelectedScenario] = useState(scenarios[0].id)
@@ -18,6 +23,9 @@ export function Simulator() {
   const [terminalState, setTerminalState] = useState<TerminalState>("idle")
   const [simulatorOutput, setSimulatorOutput] = useState<SimulatorOutput | null>(null)
   const [isProcessing, setIsProcessing] = useState(false)
+  const [viewMode, setViewMode] = useState<ViewMode>("mobile")
+  const [activeMobileTab, setActiveMobileTab] = useState<MobileTab>("terminal")
+  const isMobile = useIsMobile()
 
   const runSimulation = useCallback(() => {
     const output = generateScenarioData(selectedScenario)
@@ -63,33 +71,63 @@ export function Simulator() {
   return (
     <div className="flex h-screen flex-col bg-slate-950">
       {/* Header */}
-      <header className="border-b border-slate-800 bg-slate-900 px-6 py-4">
-        <div className="flex items-center justify-between">
-          <div>
-            <h1 className="text-2xl font-bold text-white">AFC Fraud Simulator</h1>
-            <p className="text-sm text-slate-400">Aktia Bank - Anti-Fraud Control Intelligence Engine</p>
+      <header className="border-b border-slate-800 bg-slate-900 px-4 py-3 md:px-6 md:py-4">
+        <div className="flex items-center justify-between gap-2">
+          <div className="min-w-0 flex-1">
+            <h1 className="truncate text-lg font-bold text-white md:text-2xl">AFC Fraud Simulator</h1>
+            <p className="hidden text-sm text-slate-400 sm:block">Aktia Bank - Anti-Fraud Control Intelligence Engine</p>
           </div>
           <div className="flex items-center gap-3">
+            {/* View Mode Toggle - Only visible on mobile */}
+            {isMobile && (
+              <div className="flex items-center rounded-lg border border-slate-700 bg-slate-800 p-1">
+                <button
+                  onClick={() => setViewMode("desktop")}
+                  className={cn(
+                    "flex items-center gap-1.5 rounded-md px-2.5 py-1.5 text-xs font-medium transition-all",
+                    viewMode === "desktop"
+                      ? "bg-[#002E6E] text-white"
+                      : "text-slate-400 hover:text-white"
+                  )}
+                >
+                  <Monitor className="h-3.5 w-3.5" />
+                  <span className="hidden sm:inline">Desktop</span>
+                </button>
+                <button
+                  onClick={() => setViewMode("mobile")}
+                  className={cn(
+                    "flex items-center gap-1.5 rounded-md px-2.5 py-1.5 text-xs font-medium transition-all",
+                    viewMode === "mobile"
+                      ? "bg-[#002E6E] text-white"
+                      : "text-slate-400 hover:text-white"
+                  )}
+                >
+                  <Smartphone className="h-3.5 w-3.5" />
+                  <span className="hidden sm:inline">Mobile</span>
+                </button>
+              </div>
+            )}
             {phase === "complete" && (
-              <Button variant="outline" onClick={resetSimulation} className="gap-2">
+              <Button variant="outline" onClick={resetSimulation} className="gap-2 px-2 md:px-4">
                 <RotateCcw className="h-4 w-4" />
-                Reset
+                <span className="hidden sm:inline">Reset</span>
               </Button>
             )}
             <Button
               onClick={runSimulation}
               disabled={isRunning}
-              className="gap-2 bg-[#002E6E] hover:bg-[#003d8f]"
+              className="gap-2 bg-[#002E6E] px-2 hover:bg-[#003d8f] md:px-4"
             >
               <Play className="h-4 w-4" />
-              {isRunning ? "Running..." : "Run Simulation"}
+              <span className="hidden sm:inline">{isRunning ? "Running..." : "Run Simulation"}</span>
+              <span className="sm:hidden">{isRunning ? "..." : "Run"}</span>
             </Button>
           </div>
         </div>
       </header>
 
       {/* Scenario Selector */}
-      <div className="border-b border-slate-800 bg-slate-900/50 px-6 py-4">
+      <div className="border-b border-slate-800 bg-slate-900/50 px-4 py-3 md:px-6 md:py-4">
         <div className="mb-2 text-sm font-medium text-slate-400">Select Scenario</div>
         <ScenarioSelector
           scenarios={scenarios}
@@ -101,37 +139,112 @@ export function Simulator() {
 
       {/* Main 3-Panel Layout */}
       <main className="flex flex-1 overflow-hidden">
-        {/* Panel 1: Terminal */}
-        <div className="w-1/3 border-r border-slate-800 bg-slate-900/30 p-6">
-          <TerminalPanel
-            state={terminalState}
-            payload={simulatorOutput?.panel_left_json || null}
-          />
-        </div>
+        {/* Desktop Layout or Desktop View on Mobile */}
+        {(!isMobile || viewMode === "desktop") && (
+          <div className={cn(
+            "flex h-full",
+            isMobile && viewMode === "desktop" ? "w-[200%] origin-top-left scale-50" : "w-full"
+          )}>
+            {/* Panel 1: Terminal */}
+            <div className="w-1/3 border-r border-slate-800 bg-slate-900/30 p-6">
+              <TerminalPanel
+                state={terminalState}
+                payload={simulatorOutput?.panel_left_json || null}
+              />
+            </div>
 
-        {/* Panel 2: Reasoning */}
-        <div className="w-1/3 border-r border-slate-800 bg-slate-900/20 p-6">
-          <ReasoningPanel
-            reasoning={simulatorOutput?.panel_center_reasoning || null}
-            isProcessing={phase === "reasoning"}
-            isComplete={phase === "complete"}
-            onComplete={handleReasoningComplete}
-          />
-        </div>
+            {/* Panel 2: Reasoning */}
+            <div className="w-1/3 border-r border-slate-800 bg-slate-900/20 p-6">
+              <ReasoningPanel
+                reasoning={simulatorOutput?.panel_center_reasoning || null}
+                isProcessing={phase === "reasoning"}
+                isComplete={phase === "complete"}
+                onComplete={handleReasoningComplete}
+              />
+            </div>
 
-        {/* Panel 3: Mobile */}
-        <div className="w-1/3 bg-slate-900/10 p-6">
-          <MobilePanel
-            mobile={simulatorOutput?.panel_right_mobile || null}
-            isVisible={phase === "mobile" || phase === "complete"}
-            onVerificationComplete={handleVerificationComplete}
-          />
-        </div>
+            {/* Panel 3: Mobile */}
+            <div className="w-1/3 bg-slate-900/10 p-6">
+              <MobilePanel
+                mobile={simulatorOutput?.panel_right_mobile || null}
+                isVisible={phase === "mobile" || phase === "complete"}
+                onVerificationComplete={handleVerificationComplete}
+              />
+            </div>
+          </div>
+        )}
+
+        {/* Mobile-Optimized Layout with Tabs */}
+        {isMobile && viewMode === "mobile" && (
+          <div className="flex w-full flex-col">
+            {/* Tab Navigation */}
+            <div className="flex border-b border-slate-800 bg-slate-900/50">
+              <button
+                onClick={() => setActiveMobileTab("terminal")}
+                className={cn(
+                  "flex-1 px-4 py-3 text-sm font-medium transition-all",
+                  activeMobileTab === "terminal"
+                    ? "border-b-2 border-[#002E6E] text-white"
+                    : "text-slate-400 hover:text-white"
+                )}
+              >
+                Terminal
+              </button>
+              <button
+                onClick={() => setActiveMobileTab("reasoning")}
+                className={cn(
+                  "flex-1 px-4 py-3 text-sm font-medium transition-all",
+                  activeMobileTab === "reasoning"
+                    ? "border-b-2 border-[#002E6E] text-white"
+                    : "text-slate-400 hover:text-white"
+                )}
+              >
+                Analysis
+              </button>
+              <button
+                onClick={() => setActiveMobileTab("mobile")}
+                className={cn(
+                  "flex-1 px-4 py-3 text-sm font-medium transition-all",
+                  activeMobileTab === "mobile"
+                    ? "border-b-2 border-[#002E6E] text-white"
+                    : "text-slate-400 hover:text-white"
+                )}
+              >
+                Aktia Mobile
+              </button>
+            </div>
+
+            {/* Tab Content */}
+            <div className="flex-1 overflow-auto p-4">
+              {activeMobileTab === "terminal" && (
+                <TerminalPanel
+                  state={terminalState}
+                  payload={simulatorOutput?.panel_left_json || null}
+                />
+              )}
+              {activeMobileTab === "reasoning" && (
+                <ReasoningPanel
+                  reasoning={simulatorOutput?.panel_center_reasoning || null}
+                  isProcessing={phase === "reasoning"}
+                  isComplete={phase === "complete"}
+                  onComplete={handleReasoningComplete}
+                />
+              )}
+              {activeMobileTab === "mobile" && (
+                <MobilePanel
+                  mobile={simulatorOutput?.panel_right_mobile || null}
+                  isVisible={phase === "mobile" || phase === "complete"}
+                  onVerificationComplete={handleVerificationComplete}
+                />
+              )}
+            </div>
+          </div>
+        )}
       </main>
 
       {/* Footer */}
-      <footer className="border-t border-slate-800 bg-slate-900 px-6 py-3">
-        <div className="flex items-center justify-between text-xs text-slate-500">
+      <footer className="border-t border-slate-800 bg-slate-900 px-4 py-2 md:px-6 md:py-3">
+        <div className="flex flex-col items-start gap-1 text-xs text-slate-500 md:flex-row md:items-center md:justify-between md:gap-0">
           <span>Aktia Bank AFC Intelligence Engine v1.0</span>
           <div className="flex items-center gap-4">
             <span>

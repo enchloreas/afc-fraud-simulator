@@ -41,7 +41,20 @@ export function ReasoningPanel({ reasoning, isProcessing, isComplete, onComplete
 
   // Handle step animation when processing starts
   useEffect(() => {
-    if (!reasoning || !isProcessing) {
+    if (!reasoning) {
+      return
+    }
+
+    // If already complete (e.g., viewing on mobile tab after simulation ran), show all steps immediately
+    if (isComplete && !hasStartedRef.current && visibleSteps.length === 0) {
+      setVisibleSteps(reasoning.steps.map(step => ({ ...step, status: "complete" })))
+      setCurrentStep(reasoning.steps.length)
+      setShowScore(true)
+      hasStartedRef.current = true
+      return
+    }
+
+    if (!isProcessing) {
       return
     }
 
@@ -74,7 +87,7 @@ export function ReasoningPanel({ reasoning, isProcessing, isComplete, onComplete
     return () => {
       // Don't clear interval on cleanup - let it finish
     }
-  }, [reasoning, isProcessing])
+  }, [reasoning, isProcessing, isComplete, visibleSteps.length])
 
   const getStepIcon = (step: ReasoningStep) => {
     if (step.status === "processing") {
