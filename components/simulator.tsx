@@ -1,6 +1,7 @@
 "use client"
 
 import { useState, useCallback } from "react"
+import Image from "next/image"
 import { TerminalPanel } from "./terminal-panel"
 import { ReasoningPanel } from "./reasoning-panel"
 import { MobilePanel } from "./mobile-panel"
@@ -72,14 +73,59 @@ export function Simulator() {
     <div className="flex h-screen flex-col bg-slate-950">
       {/* Header */}
       <header className="border-b border-slate-800 bg-slate-900 px-4 py-3 md:px-6 md:py-4">
-        <div className="flex items-center justify-between gap-2">
-          <div className="min-w-0 flex-1">
-            <h1 className="truncate text-lg font-bold text-white md:text-2xl">AFC Fraud Simulator</h1>
-            <p className="hidden text-sm text-slate-400 sm:block">Aktia Bank - Anti-Fraud Control Intelligence Engine</p>
+        {/* Desktop Header Layout */}
+        {!isMobile && (
+          <div className="flex items-center justify-between gap-4">
+            <div className="flex items-center gap-4">
+              <Image
+                src="/images/afc-logo.jpg"
+                alt="AFC Logo"
+                width={48}
+                height={48}
+                className="rounded-lg"
+              />
+              <div>
+                <h1 className="text-2xl font-bold text-white">AFC Fraud Simulator</h1>
+                <p className="text-sm text-slate-400">Aktia Bank - Anti-Fraud Control Intelligence Engine</p>
+              </div>
+            </div>
+            <div className="flex items-center gap-3">
+              {phase === "complete" && (
+                <Button variant="outline" onClick={resetSimulation} className="gap-2">
+                  <RotateCcw className="h-4 w-4" />
+                  Reset
+                </Button>
+              )}
+              <Button
+                onClick={runSimulation}
+                disabled={isRunning}
+                className="gap-2 bg-[#002E6E] hover:bg-[#003d8f]"
+              >
+                <Play className="h-4 w-4" />
+                {isRunning ? "Running..." : "Run Simulation"}
+              </Button>
+            </div>
           </div>
-          <div className="flex items-center gap-3">
-            {/* View Mode Toggle - Only visible on mobile */}
-            {isMobile && (
+        )}
+
+        {/* Mobile Header Layout */}
+        {isMobile && (
+          <div className="flex flex-col gap-3">
+            {/* Logo and App Name */}
+            <div className="flex items-center gap-3">
+              <Image
+                src="/images/afc-logo.jpg"
+                alt="AFC Logo"
+                width={40}
+                height={40}
+                className="rounded-lg"
+              />
+              <h1 className="text-lg font-bold text-white">AFC Fraud Simulator</h1>
+            </div>
+
+            {/* Controls Panel */}
+            <div className="flex items-center justify-between gap-2">
+              {/* View Mode Toggle */}
               <div className="flex items-center rounded-lg border border-slate-700 bg-slate-800 p-1">
                 <button
                   onClick={() => setViewMode("desktop")}
@@ -91,7 +137,7 @@ export function Simulator() {
                   )}
                 >
                   <Monitor className="h-3.5 w-3.5" />
-                  <span className="hidden sm:inline">Desktop</span>
+                  Desktop
                 </button>
                 <button
                   onClick={() => setViewMode("mobile")}
@@ -103,27 +149,31 @@ export function Simulator() {
                   )}
                 >
                   <Smartphone className="h-3.5 w-3.5" />
-                  <span className="hidden sm:inline">Mobile</span>
+                  Mobile
                 </button>
               </div>
-            )}
-            {phase === "complete" && (
-              <Button variant="outline" onClick={resetSimulation} className="gap-2 px-2 md:px-4">
-                <RotateCcw className="h-4 w-4" />
-                <span className="hidden sm:inline">Reset</span>
-              </Button>
-            )}
-            <Button
-              onClick={runSimulation}
-              disabled={isRunning}
-              className="gap-2 bg-[#002E6E] px-2 hover:bg-[#003d8f] md:px-4"
-            >
-              <Play className="h-4 w-4" />
-              <span className="hidden sm:inline">{isRunning ? "Running..." : "Run Simulation"}</span>
-              <span className="sm:hidden">{isRunning ? "..." : "Run"}</span>
-            </Button>
+
+              {/* Action Buttons */}
+              <div className="flex items-center gap-2">
+                {phase === "complete" && (
+                  <Button variant="outline" onClick={resetSimulation} size="sm" className="gap-1.5 px-2">
+                    <RotateCcw className="h-3.5 w-3.5" />
+                    Reset
+                  </Button>
+                )}
+                <Button
+                  onClick={runSimulation}
+                  disabled={isRunning}
+                  size="sm"
+                  className="gap-1.5 bg-[#002E6E] px-3 hover:bg-[#003d8f]"
+                >
+                  <Play className="h-3.5 w-3.5" />
+                  {isRunning ? "Running..." : "Run"}
+                </Button>
+              </div>
+            </div>
           </div>
-        </div>
+        )}
       </header>
 
       {/* Scenario Selector */}
