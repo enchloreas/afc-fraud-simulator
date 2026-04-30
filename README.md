@@ -2,6 +2,8 @@
 
 > Anti-Fraud Control Intelligence Engine - A real-time transaction fraud detection demonstration for Aktia Bank
 
+[![Live Demo](https://img.shields.io/badge/Live_Demo-Visit_App-blue?style=for-the-badge&logo=vercel)](https://v0-afc-fraud-simulator.vercel.app/)
+
 ![Next.js](https://img.shields.io/badge/Next.js-16.2-black?style=flat-square&logo=next.js)
 ![React](https://img.shields.io/badge/React-19.2-61DAFB?style=flat-square&logo=react)
 ![TypeScript](https://img.shields.io/badge/TypeScript-5.7-blue?style=flat-square&logo=typescript)
@@ -132,11 +134,35 @@ The simulator evaluates transactions based on:
 
 ## Screenshots
 
-### Desktop View
-Three-panel layout showing terminal, AI reasoning, and mobile banking simulation side by side.
+### Local Purchase - Approved Transaction
+Normal purchase at a local Helsinki store with low risk score (12/100). Transaction is approved instantly.
 
-### Mobile View
-Tab-based navigation optimized for mobile devices with view mode toggle.
+![Local Purchase](https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Local_purchase-MYUeTybEXWbR7c25CV2B4PHYx3B6Aj.png)
+
+### Known Travel - Verified International Purchase
+Purchase in Thailand with confirmed flight booking. AI verifies travel history and approves (28/100).
+
+![Known Travel](https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Known_travel-EgICPzCkYC5YWi4pkTbxjq82vvnBcw.png)
+
+### Impossible Travel - Fraud Detected
+Helsinki to Thailand in 2 hours with no flight history. Critical risk (97/100), transaction blocked.
+
+![Impossible Travel](https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Impossible_travel-1SMVQNoQ7L9h1O8Ck45Jmie8L7u6KW.png)
+
+### High Risk Merchant - Pending Review
+Large crypto purchase requiring identity verification. User can verify identity or report suspicious activity.
+
+![High Risk Pending](https://hebbkx1anhila5yf.public.blob.vercel-storage.com/High_Risk_Pending-Cle8ohMZIPKCezmZNc8tjBIoHMy0np.png)
+
+### High Risk Merchant - Identity Verified
+After successful identity verification, transaction is approved.
+
+![High Risk Verified](https://hebbkx1anhila5yf.public.blob.vercel-storage.com/High_Risk_verified-Gciir5R48kTQlnHsxPhXy94btTibQF.png)
+
+### High Risk Merchant - Fraud Reported
+User reported suspicious activity, transaction declined and flagged for review.
+
+![High Risk Reported](https://hebbkx1anhila5yf.public.blob.vercel-storage.com/High_Risk_reported-K2snMBoDUnW2cKsaTXd6x4JNgu3bbq.png)
 
 ## Use Cases
 
