@@ -20,14 +20,14 @@ const scenarioIcons: Record<string, React.ReactNode> = {
 
 export function ScenarioSelector({ scenarios, selectedId, onSelect, disabled }: ScenarioSelectorProps) {
   return (
-    <div className="flex gap-3 overflow-x-auto pb-2 md:flex-wrap md:overflow-x-visible md:pb-0">
+    <div className="flex flex-col gap-2 md:flex-row md:flex-wrap md:gap-3">
       {scenarios.map((scenario) => (
         <button
           key={scenario.id}
           onClick={() => onSelect(scenario.id)}
           disabled={disabled}
           className={cn(
-            "flex shrink-0 items-center gap-2 rounded-lg border px-3 py-2 text-left transition-all md:gap-3 md:px-4 md:py-3",
+            "flex w-full items-center gap-2 rounded-lg border px-3 py-2 text-left transition-all md:w-auto md:gap-3 md:px-4 md:py-3",
             selectedId === scenario.id
               ? scenario.id === "high_risk_merchant"
                 ? "border-yellow-500 bg-yellow-500/10 text-yellow-300"
@@ -63,7 +63,7 @@ export function ScenarioSelector({ scenarios, selectedId, onSelect, disabled }: 
                 <CheckCircle className="h-3.5 w-3.5 text-green-400" />
               )}
             </div>
-            <span className="hidden text-xs text-slate-500 md:block">{scenario.description}</span>
+            <span className="text-xs text-slate-500">{scenario.description}</span>
           </div>
         </button>
       ))}
