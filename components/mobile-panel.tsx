@@ -3,19 +3,24 @@
 import { useEffect, useState } from "react"
 import type { PanelRightMobile } from "@/lib/types"
 import { cn } from "@/lib/utils"
-import { Shield, CheckCircle, Phone, ChevronRight, Wifi, Battery, Signal, AlertTriangle, Fingerprint, Loader2 } from "lucide-react"
+import { Shield, CheckCircle, Phone, ChevronRight, Wifi, Battery, Signal, AlertTriangle, Fingerprint, Loader2, ShieldAlert, XCircle } from "lucide-react"
+import type { TerminalState } from "@/lib/types"
 
 interface MobilePanelProps {
   mobile: PanelRightMobile | null
   isVisible: boolean
   onVerificationComplete?: () => void
+  onFraudReport?: () => void
+  terminalState?: TerminalState
 }
 
-export function MobilePanel({ mobile, isVisible, onVerificationComplete }: MobilePanelProps) {
+export function MobilePanel({ mobile, isVisible, onVerificationComplete, onFraudReport, terminalState }: MobilePanelProps) {
   const [showContent, setShowContent] = useState(false)
   const [currentTime, setCurrentTime] = useState("")
   const [verificationState, setVerificationState] = useState<"idle" | "verifying" | "verified">("idle")
   const [showSuccess, setShowSuccess] = useState(false)
+  const [showDeclined, setShowDeclined] = useState(false)
+  const [reportingFraud, setReportingFraud] = useState(false)
 
   useEffect(() => {
     const updateTime = () => {
@@ -32,10 +37,27 @@ export function MobilePanel({ mobile, isVisible, onVerificationComplete }: Mobil
       setTimeout(() => setShowContent(true), 300)
     } else {
       setShowContent(false)
-      setVerificationState("idle")
-      setShowSuccess(false)
+      // Only reset verification state when mobile data changes (new simulation)
+      // Don't reset just because tab was switched
     }
   }, [isVisible])
+
+  // Reset state when mobile data changes (new simulation started)
+  useEffect(() => {
+    if (!mobile) {
+      setVerificationState("idle")
+      setShowSuccess(false)
+      setShowDeclined(false)
+      setReportingFraud(false)
+    }
+  }, [mobile])
+
+  // Sync state with terminal state (for when terminal is updated externally)
+  useEffect(() => {
+    if (terminalState === "approved" && verificationState === "verified") {
+      setShowSuccess(true)
+    }
+  }, [terminalState, verificationState])
 
   const isAlert = mobile?.view_type === "SECURITY_ALERT_VIEW"
   const isVerification = mobile?.view_type === "IDENTITY_VERIFICATION_VIEW"
@@ -50,6 +72,15 @@ export function MobilePanel({ mobile, isVisible, onVerificationComplete }: Mobil
         onVerificationComplete?.()
       }, 500)
     }, 2000)
+  }
+
+  const handleReportFraud = () => {
+    setReportingFraud(true)
+    setTimeout(() => {
+      setShowDeclined(true)
+      // Notify parent to decline transaction
+      onFraudReport?.()
+    }, 1500)
   }
 
   return (
@@ -108,17 +139,22 @@ export function MobilePanel({ mobile, isVisible, onVerificationComplete }: Mobil
                       <div
                         className={cn(
                           "flex h-16 w-16 items-center justify-center rounded-full",
-                          isAlert && "bg-red-500/20",
-                          isVerification && !showSuccess && "bg-yellow-500/20",
-                          (!isAlert && !isVerification) || showSuccess ? "bg-green-500/20" : ""
+                          showDeclined && "bg-red-500/20",
+                          isAlert && !showDeclined && "bg-red-500/20",
+                          isVerification && !showSuccess && !showDeclined && "bg-yellow-500/20",
+                          ((!isAlert && !isVerification) || showSuccess) && !showDeclined ? "bg-green-500/20" : ""
                         )}
                       >
-                        {showSuccess ? (
+                        {showDeclined ? (
+                          <XCircle className="h-8 w-8 text-red-400" />
+                        ) : showSuccess ? (
                           <CheckCircle className="h-8 w-8 text-green-400" />
                         ) : isAlert ? (
                           <Shield className="h-8 w-8 text-red-400" />
                         ) : isVerification ? (
-                          verificationState === "verifying" ? (
+                          reportingFraud ? (
+                            <Loader2 className="h-8 w-8 animate-spin text-red-400" />
+                          ) : verificationState === "verifying" ? (
                             <Loader2 className="h-8 w-8 animate-spin text-yellow-400" />
                           ) : verificationState === "verified" ? (
                             <CheckCircle className="h-8 w-8 text-green-400" />
@@ -136,21 +172,21 @@ export function MobilePanel({ mobile, isVisible, onVerificationComplete }: Mobil
                       <h3
                         className={cn(
                           "mb-2 text-xl font-bold",
-                          showSuccess ? "text-green-400" : isAlert ? "text-red-400" : isVerification ? "text-yellow-400" : "text-white"
+                          showDeclined ? "text-red-400" : showSuccess ? "text-green-400" : isAlert ? "text-red-400" : isVerification ? "text-yellow-400" : "text-white"
                         )}
                       >
-                        {showSuccess ? "Payment Approved" : verificationState === "verifying" ? "Verifying..." : verificationState === "verified" ? "Identity Verified" : mobile.title}
+                        {showDeclined ? "Transaction Declined" : showSuccess ? "Payment Approved" : reportingFraud ? "Reporting..." : verificationState === "verifying" ? "Verifying..." : verificationState === "verified" ? "Identity Verified" : mobile.title}
                       </h3>
                       <p className="text-sm leading-relaxed text-white/80">
-                        {showSuccess ? `€${mobile.description.includes("4,999") ? "4,999" : mobile.description.split("€")[1]?.split(" ")[0] || "4,999"} at CryptoGems Exchange` : verificationState === "verifying" ? "Please wait while we verify your identity..." : verificationState === "verified" ? "Your identity has been confirmed. Processing transaction..." : mobile.description}
+                        {showDeclined ? "This transaction has been blocked and reported. Our team will review it." : showSuccess ? `€${mobile.description.includes("4,999") ? "4,999" : mobile.description.split("€")[1]?.split(" ")[0] || "4,999"} at CryptoGems Exchange` : reportingFraud ? "Please wait while we report this activity..." : verificationState === "verifying" ? "Please wait while we verify your identity..." : verificationState === "verified" ? "Your identity has been confirmed. Processing transaction..." : mobile.description}
                       </p>
                     </div>
 
                     {/* Main Action Button */}
-                    {!showSuccess && (
+                    {!showSuccess && !showDeclined && (
                       <button
                         onClick={mobile.main_action.type === "verify" ? handleVerifyIdentity : undefined}
-                        disabled={verificationState !== "idle"}
+                        disabled={verificationState !== "idle" || reportingFraud}
                         className={cn(
                           "flex w-full items-center justify-center gap-2 rounded-xl py-3.5 font-semibold transition-all",
                           isAlert
@@ -165,11 +201,30 @@ export function MobilePanel({ mobile, isVisible, onVerificationComplete }: Mobil
                         {verificationState === "verifying" ? "Verifying..." : verificationState === "verified" ? "Verified!" : mobile.main_action.label}
                       </button>
                     )}
+
+                    {/* Report Fraud Button - Only for verification view */}
+                    {isVerification && !showSuccess && !showDeclined && verificationState === "idle" && !reportingFraud && (
+                      <button
+                        onClick={handleReportFraud}
+                        className="flex w-full items-center justify-center gap-2 rounded-xl border border-red-500/50 bg-red-500/10 py-3 font-semibold text-red-400 transition-all hover:bg-red-500/20"
+                      >
+                        <ShieldAlert className="h-4 w-4" />
+                        Report Suspicious Activity
+                      </button>
+                    )}
+
                     {showSuccess && (
                       <button
                         className="flex w-full items-center justify-center gap-2 rounded-xl bg-white py-3.5 font-semibold text-[#002E6E] transition-all hover:bg-white/90"
                       >
                         View Details
+                      </button>
+                    )}
+                    {showDeclined && (
+                      <button
+                        className="flex w-full items-center justify-center gap-2 rounded-xl bg-white py-3.5 font-semibold text-[#002E6E] transition-all hover:bg-white/90"
+                      >
+                        Contact Support
                       </button>
                     )}
 
