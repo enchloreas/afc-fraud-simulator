@@ -84,7 +84,7 @@ export function MobilePanel({ mobile, isVisible, onVerificationComplete, onFraud
   }
 
   return (
-    <div className="flex h-full flex-col">
+    <div className="flex flex-col">
       <div className="mb-4 border-b border-border pb-3">
         <h2 className="text-lg font-bold text-foreground">Aktia Mobile</h2>
         <p className="text-sm text-muted-foreground">Customer Notification</p>

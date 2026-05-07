@@ -75,7 +75,7 @@ export function Simulator() {
   const isRunning = phase !== "idle" && phase !== "complete"
 
   return (
-    <div className="flex h-screen flex-col bg-background">
+    <div className="flex h-screen flex-col overflow-hidden bg-background">
       {/* Header */}
       <header className="border-b border-border bg-card px-4 py-3 md:px-6 md:py-4">
         {/* Desktop Header Layout */}
@@ -193,15 +193,15 @@ export function Simulator() {
       </div>
 
       {/* Main 3-Panel Layout */}
-      <main className="flex flex-1 overflow-auto bg-background">
+      <main className="flex min-h-0 flex-1 overflow-hidden">
         {/* Desktop Layout or Desktop View on Mobile */}
         {(!isMobile || viewMode === "desktop") && (
           <div className={cn(
-            "flex w-full",
+            "flex h-full",
             isMobile && viewMode === "desktop" ? "w-[200%] origin-top-left scale-50" : "w-full"
           )}>
             {/* Panel 1: Terminal */}
-            <div className="w-1/3 overflow-auto border-r border-border bg-card p-6">
+            <div className="h-full w-1/3 overflow-auto border-r border-border bg-card p-6">
               <TerminalPanel
                 state={terminalState}
                 payload={simulatorOutput?.panel_left_json || null}
@@ -209,7 +209,7 @@ export function Simulator() {
             </div>
 
             {/* Panel 2: Reasoning */}
-            <div className="w-1/3 overflow-auto border-r border-border bg-secondary/50 p-6">
+            <div className="h-full w-1/3 overflow-auto border-r border-border bg-secondary/50 p-6">
               <ReasoningPanel
                 reasoning={simulatorOutput?.panel_center_reasoning || null}
                 isProcessing={phase === "reasoning"}
@@ -219,7 +219,7 @@ export function Simulator() {
             </div>
 
             {/* Panel 3: Mobile */}
-            <div className="w-1/3 overflow-auto bg-muted/30 p-6">
+            <div className="h-full w-1/3 overflow-auto bg-muted/30 p-6">
               <MobilePanel
                 mobile={simulatorOutput?.panel_right_mobile || null}
                 isVisible={phase === "mobile" || phase === "complete"}

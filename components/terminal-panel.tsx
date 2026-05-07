@@ -101,7 +101,7 @@ export function TerminalPanel({ state, payload, onComplete }: TerminalPanelProps
       </Card>
 
       {/* Raw JSON Payload */}
-      <div className="flex flex-1 flex-col overflow-hidden">
+      <div className="flex min-h-0 flex-1 flex-col">
         <div className="mb-2 flex shrink-0 items-center justify-between">
           <h3 className="text-sm font-medium text-foreground/80">Raw Transaction Payload</h3>
           {showPayload && (
