@@ -5,47 +5,42 @@ import type { PanelRightMobile } from "@/lib/types"
 import { cn } from "@/lib/utils"
 import { Shield, CheckCircle, Phone, ChevronRight, Wifi, Battery, Signal, AlertTriangle, Fingerprint, Loader2, ShieldAlert, XCircle } from "lucide-react"
 
-/* Aktia design system nav icons — thin outline, rounded strokes, no fill */
+/* Aktia design system nav icons — solid filled style matching Aktia brand */
 
 function HomeIcon({ className }: { className?: string }) {
   return (
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" className={className} aria-hidden="true">
-      <path d="M3 10.5L12 3l9 7.5V21a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V10.5z" />
-      <path d="M9 22V12h6v10" />
+    <svg viewBox="0 0 24 24" fill="currentColor" className={className} aria-hidden="true">
+      <path d="M12 3L2 12h3v8a1 1 0 001 1h5v-6h2v6h5a1 1 0 001-1v-8h3L12 3z" />
     </svg>
   )
 }
 
 function CardsIcon({ className }: { className?: string }) {
   return (
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" className={className} aria-hidden="true">
-      <rect x="2" y="5" width="20" height="14" rx="2" />
-      <line x1="2" y1="10" x2="22" y2="10" />
-      <line x1="6" y1="15" x2="9" y2="15" />
-      <line x1="12" y1="15" x2="15" y2="15" />
+    <svg viewBox="0 0 24 24" fill="currentColor" className={className} aria-hidden="true">
+      <path d="M20 4H4a2 2 0 00-2 2v12a2 2 0 002 2h16a2 2 0 002-2V6a2 2 0 00-2-2zm0 5H4V7h16v2z" />
     </svg>
   )
 }
 
 function PayIcon({ className }: { className?: string }) {
   return (
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" className={className} aria-hidden="true">
-      {/* Coin */}
-      <circle cx="14" cy="7" r="5" />
-      <line x1="14" y1="4.5" x2="14" y2="9.5" />
-      <path d="M16 5.5c-.5-.6-2.5-.8-2.5 1s2 1.4 2.5 2-.2 2.5-2.5 2" />
-      {/* Open hand */}
-      <path d="M2 17c0 0 1-2.5 4-2.5h5.5l2.5.5c1 .3 2 1 2.5 2l2-1c.8-.3 1.5.3 1.5 1s-.5 1.2-1 1.5L13 21c-1 .5-2 .5-3 .5H4c-.6 0-1-.5-1-1v-3.5z" />
+    <svg viewBox="0 0 24 24" fill="currentColor" className={className} aria-hidden="true">
+      {/* Coin with euro symbol */}
+      <circle cx="15" cy="7" r="5" />
+      <path fill="white" d="M15 4.5v5M13 6h3M13 8h3" stroke="white" strokeWidth="0.8" strokeLinecap="round" />
+      {/* Open hand holding */}
+      <path d="M3 15c0-1 1-2 2-2h6l3 1c1 .5 2 1.5 2 3l3-1.5c1-.5 2 .5 2 1.5s-1 1.5-2 2l-6 3c-1 .5-2 .5-3 .5H5c-1 0-2-1-2-2v-5z" />
     </svg>
   )
 }
 
 function MoreIcon({ className }: { className?: string }) {
   return (
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" className={className} aria-hidden="true">
-      <line x1="3" y1="6" x2="21" y2="6" />
-      <line x1="3" y1="12" x2="21" y2="12" />
-      <line x1="3" y1="18" x2="21" y2="18" />
+    <svg viewBox="0 0 24 24" fill="currentColor" className={className} aria-hidden="true">
+      <rect x="3" y="5" width="18" height="2.5" rx="1" />
+      <rect x="3" y="10.75" width="18" height="2.5" rx="1" />
+      <rect x="3" y="16.5" width="18" height="2.5" rx="1" />
     </svg>
   )
 }
@@ -295,11 +290,9 @@ export function MobilePanel({ mobile, isVisible, onVerificationComplete, onFraud
                     { label: "Pay", Icon: PayIcon },
                     { label: "More", Icon: MoreIcon },
                   ].map(({ label, Icon }) => (
-                    <div key={label} className="flex flex-col items-center gap-1">
-                      <div className="flex h-8 w-8 items-center justify-center rounded-full bg-white/10">
-                        <Icon className="h-4 w-4 text-white/70" />
-                      </div>
-                      <span className="text-[10px] text-white/60">{label}</span>
+                    <div key={label} className="flex flex-col items-center gap-1.5">
+                      <Icon className="h-5 w-5 text-aktia-green" />
+                      <span className="text-[10px] font-medium text-white/80">{label}</span>
                     </div>
                   ))}
                 </div>
