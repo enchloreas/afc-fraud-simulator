@@ -116,7 +116,7 @@ export function MobilePanel({ mobile, isVisible, onVerificationComplete, onFraud
                   <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-aktia-green">
                     <span className="text-sm font-bold text-white">A</span>
                   </div>
-                  <span className="text-lg font-semibold text-white">Aktia</span>
+                  <span className="text-lg font-semibold text-white">Aktia TrustControl</span>
                 </div>
               </div>
 
