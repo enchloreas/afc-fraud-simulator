@@ -59,18 +59,18 @@ export function TerminalPanel({ state, payload, onComplete }: TerminalPanelProps
       </div>
 
       {/* Terminal Screen */}
-      <Card className="mb-4 border-2 border-aktia bg-card">
+      <Card className="mb-4 border-2 border-border bg-card">
         <CardContent className="p-0">
           <div className="rounded-t-lg bg-secondary px-4 py-2">
             <div className="flex items-center justify-between">
               <span className="text-xs text-muted-foreground">VERIFONE</span>
               <div className="flex gap-1">
-                <div className="h-2 w-2 rounded-full bg-emerald-500" />
-                <div className="h-2 w-2 rounded-full bg-aktia-gold" />
+                <div className="h-2 w-2 rounded-full bg-aktia-green" />
+                <div className="h-2 w-2 rounded-full bg-amber-500" />
               </div>
             </div>
           </div>
-          <div className="flex min-h-[120px] flex-col items-center justify-center bg-aktia-navy p-6 font-mono">
+          <div className="flex min-h-[120px] flex-col items-center justify-center bg-aktia-dark p-6 font-mono">
             {isProcessing && (
               <div className="mb-2 flex gap-1">
                 <span className="h-2 w-2 animate-pulse rounded-full bg-yellow-400" style={{ animationDelay: "0ms" }} />

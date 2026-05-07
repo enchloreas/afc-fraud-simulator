@@ -34,7 +34,7 @@ export function ScenarioSelector({ scenarios, selectedId, onSelect, disabled }: 
                 : scenario.type === "fraud"
                   ? "border-red-500 bg-red-500/10 text-red-300"
                   : "border-green-500 bg-green-500/10 text-green-300"
-              : "border-border bg-card/50 text-muted-foreground hover:border-aktia/50 hover:bg-card",
+              : "border-border bg-card text-muted-foreground hover:border-aktia-green/50 hover:bg-secondary",
             disabled && "cursor-not-allowed opacity-50"
           )}
         >

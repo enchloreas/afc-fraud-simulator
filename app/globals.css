@@ -4,88 +4,64 @@
 @custom-variant dark (&:is(.dark *));
 
 /* Aktia Bank Design System
-   Primary: Gold (#C9A227) - Aktia's signature gold
-   Secondary: Deep Navy (#0A1628) - Professional dark background
-   Accent: Warm Gold (#D4AF37) - Highlights and CTAs
-   Surface: Slate tones for cards and panels
+   Based on actual Aktia Verkkopankki interface:
+   - Primary Green: #3F9142 (action buttons, active tabs)
+   - Light backgrounds (white/light gray)
+   - Clean, professional banking aesthetic
 */
 
 :root {
-  /* Aktia Brand Colors */
-  --aktia-gold: oklch(0.75 0.12 85);
-  --aktia-gold-light: oklch(0.82 0.1 85);
-  --aktia-gold-dark: oklch(0.65 0.14 85);
-  --aktia-navy: oklch(0.15 0.03 250);
-  --aktia-navy-light: oklch(0.2 0.03 250);
+  /* Aktia Brand Colors - Light Theme (Default) */
+  --aktia-green: oklch(0.55 0.15 145);
+  --aktia-green-hover: oklch(0.48 0.15 145);
+  --aktia-green-light: oklch(0.92 0.03 145);
+  --aktia-dark: oklch(0.25 0.01 250);
+  --aktia-gray: oklch(0.55 0.01 250);
   
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.145 0 0);
+  --background: oklch(0.97 0 0);
+  --foreground: oklch(0.2 0.01 250);
   --card: oklch(1 0 0);
-  --card-foreground: oklch(0.145 0 0);
+  --card-foreground: oklch(0.2 0.01 250);
   --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.145 0 0);
-  --primary: var(--aktia-gold);
-  --primary-foreground: oklch(0.12 0.02 250);
-  --secondary: oklch(0.97 0 0);
-  --secondary-foreground: oklch(0.205 0 0);
-  --muted: oklch(0.97 0 0);
-  --muted-foreground: oklch(0.556 0 0);
-  --accent: var(--aktia-gold-light);
-  --accent-foreground: oklch(0.12 0.02 250);
-  --destructive: oklch(0.577 0.245 27.325);
-  --destructive-foreground: oklch(0.577 0.245 27.325);
-  --border: oklch(0.922 0 0);
-  --input: oklch(0.922 0 0);
-  --ring: var(--aktia-gold);
-  --chart-1: var(--aktia-gold);
-  --chart-2: oklch(0.6 0.118 184.704);
-  --chart-3: oklch(0.398 0.07 227.392);
-  --chart-4: oklch(0.828 0.189 84.429);
-  --chart-5: oklch(0.769 0.188 70.08);
-  --radius: 0.625rem;
-  --sidebar: oklch(0.985 0 0);
-  --sidebar-foreground: oklch(0.145 0 0);
-  --sidebar-primary: var(--aktia-gold);
-  --sidebar-primary-foreground: oklch(0.12 0.02 250);
-  --sidebar-accent: oklch(0.97 0 0);
-  --sidebar-accent-foreground: oklch(0.205 0 0);
-  --sidebar-border: oklch(0.922 0 0);
-  --sidebar-ring: var(--aktia-gold);
+  --popover-foreground: oklch(0.2 0.01 250);
+  --primary: var(--aktia-green);
+  --primary-foreground: oklch(1 0 0);
+  --secondary: oklch(0.95 0 0);
+  --secondary-foreground: oklch(0.3 0.01 250);
+  --muted: oklch(0.95 0 0);
+  --muted-foreground: oklch(0.5 0.01 250);
+  --accent: var(--aktia-green-light);
+  --accent-foreground: var(--aktia-green);
+  --destructive: oklch(0.55 0.2 25);
+  --destructive-foreground: oklch(1 0 0);
+  --border: oklch(0.88 0 0);
+  --input: oklch(0.88 0 0);
+  --ring: var(--aktia-green);
+  --chart-1: var(--aktia-green);
+  --chart-2: oklch(0.6 0.12 200);
+  --chart-3: oklch(0.7 0.15 50);
+  --chart-4: oklch(0.5 0.1 280);
+  --chart-5: oklch(0.65 0.18 30);
+  --radius: 0.375rem;
+  --sidebar: oklch(1 0 0);
+  --sidebar-foreground: oklch(0.2 0.01 250);
+  --sidebar-primary: var(--aktia-green);
+  --sidebar-primary-foreground: oklch(1 0 0);
+  --sidebar-accent: oklch(0.95 0 0);
+  --sidebar-accent-foreground: oklch(0.3 0.01 250);
+  --sidebar-border: oklch(0.88 0 0);
+  --sidebar-ring: var(--aktia-green);
 }
 
-.dark {
-  --background: var(--aktia-navy);
-  --foreground: oklch(0.95 0.01 85);
-  --card: oklch(0.17 0.025 250);
-  --card-foreground: oklch(0.95 0.01 85);
-  --popover: oklch(0.17 0.025 250);
-  --popover-foreground: oklch(0.95 0.01 85);
-  --primary: var(--aktia-gold);
-  --primary-foreground: oklch(0.12 0.02 250);
-  --secondary: oklch(0.22 0.025 250);
-  --secondary-foreground: oklch(0.95 0.01 85);
-  --muted: oklch(0.22 0.025 250);
-  --muted-foreground: oklch(0.65 0.02 250);
-  --accent: var(--aktia-gold-light);
-  --accent-foreground: oklch(0.12 0.02 250);
-  --destructive: oklch(0.396 0.141 25.723);
-  --destructive-foreground: oklch(0.637 0.237 25.331);
-  --border: oklch(0.25 0.025 250);
-  --input: oklch(0.25 0.025 250);
-  --ring: var(--aktia-gold);
-  --chart-1: var(--aktia-gold);
-  --chart-2: oklch(0.696 0.17 162.48);
-  --chart-3: oklch(0.769 0.188 70.08);
-  --chart-4: oklch(0.627 0.265 303.9);
-  --chart-5: oklch(0.645 0.246 16.439);
-  --sidebar: oklch(0.12 0.02 250);
-  --sidebar-foreground: oklch(0.95 0.01 85);
-  --sidebar-primary: var(--aktia-gold);
-  --sidebar-primary-foreground: oklch(0.12 0.02 250);
-  --sidebar-accent: oklch(0.22 0.025 250);
-  --sidebar-accent-foreground: oklch(0.95 0.01 85);
-  --sidebar-border: oklch(0.25 0.025 250);
-  --sidebar-ring: var(--aktia-gold);
+/* Dark variant for terminal/technical displays only */
+.dark-panel {
+  --background: oklch(0.15 0.02 250);
+  --foreground: oklch(0.9 0 0);
+  --card: oklch(0.18 0.02 250);
+  --card-foreground: oklch(0.9 0 0);
+  --muted: oklch(0.22 0.02 250);
+  --muted-foreground: oklch(0.6 0 0);
+  --border: oklch(0.28 0.02 250);
 }
 
 @theme inline {
@@ -93,11 +69,11 @@
   --font-mono: 'Geist Mono', 'Geist Mono Fallback', monospace;
   
   /* Aktia Brand Colors */
-  --color-aktia-gold: var(--aktia-gold);
-  --color-aktia-gold-light: var(--aktia-gold-light);
-  --color-aktia-gold-dark: var(--aktia-gold-dark);
-  --color-aktia-navy: var(--aktia-navy);
-  --color-aktia-navy-light: var(--aktia-navy-light);
+  --color-aktia-green: var(--aktia-green);
+  --color-aktia-green-hover: var(--aktia-green-hover);
+  --color-aktia-green-light: var(--aktia-green-light);
+  --color-aktia-dark: var(--aktia-dark);
+  --color-aktia-gray: var(--aktia-gray);
   
   --color-background: var(--background);
   --color-foreground: var(--foreground);
@@ -123,10 +99,10 @@
   --color-chart-3: var(--chart-3);
   --color-chart-4: var(--chart-4);
   --color-chart-5: var(--chart-5);
-  --radius-sm: calc(var(--radius) - 4px);
-  --radius-md: calc(var(--radius) - 2px);
-  --radius-lg: var(--radius);
-  --radius-xl: calc(var(--radius) + 4px);
+  --radius-sm: calc(var(--radius) - 2px);
+  --radius-md: var(--radius);
+  --radius-lg: calc(var(--radius) + 2px);
+  --radius-xl: calc(var(--radius) + 6px);
   --color-sidebar: var(--sidebar);
   --color-sidebar-foreground: var(--sidebar-foreground);
   --color-sidebar-primary: var(--sidebar-primary);
@@ -148,23 +124,32 @@
 
 /* Custom Aktia-specific utility classes */
 @layer utilities {
-  .bg-aktia-gradient {
-    background: linear-gradient(135deg, oklch(0.12 0.02 250) 0%, oklch(0.18 0.03 250) 100%);
+  .bg-aktia-green {
+    background-color: oklch(0.55 0.15 145);
   }
   
-  .border-aktia {
-    border-color: oklch(0.75 0.12 85 / 0.3);
+  .hover\:bg-aktia-green-hover:hover {
+    background-color: oklch(0.48 0.15 145);
   }
   
-  .text-aktia-gold {
-    color: oklch(0.75 0.12 85);
+  .text-aktia-green {
+    color: oklch(0.55 0.15 145);
   }
   
-  .bg-aktia-gold {
-    background-color: oklch(0.75 0.12 85);
+  .border-aktia-green {
+    border-color: oklch(0.55 0.15 145);
   }
   
-  .hover\:bg-aktia-gold-dark:hover {
-    background-color: oklch(0.65 0.14 85);
+  .bg-aktia-dark {
+    background-color: oklch(0.15 0.02 250);
+  }
+  
+  .text-aktia-dark {
+    color: oklch(0.25 0.01 250);
+  }
+  
+  /* Terminal dark panel styling */
+  .terminal-screen {
+    background: linear-gradient(180deg, oklch(0.12 0.02 250) 0%, oklch(0.15 0.02 250) 100%);
   }
 }

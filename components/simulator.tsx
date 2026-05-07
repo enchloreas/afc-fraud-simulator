@@ -75,9 +75,9 @@ export function Simulator() {
   const isRunning = phase !== "idle" && phase !== "complete"
 
   return (
-    <div className="flex h-screen flex-col bg-aktia-gradient">
+    <div className="flex h-screen flex-col bg-background">
       {/* Header */}
-      <header className="border-b border-aktia bg-card px-4 py-3 md:px-6 md:py-4">
+      <header className="border-b border-border bg-card px-4 py-3 md:px-6 md:py-4">
         {/* Desktop Header Layout */}
         {!isMobile && (
           <div className="flex items-center justify-between gap-4">
@@ -90,8 +90,8 @@ export function Simulator() {
                 className="rounded-lg"
               />
               <div>
-                <h1 className="text-2xl font-bold text-white">AFC Fraud Simulator</h1>
-                <p className="text-sm text-slate-400">Aktia Bank - Anti-Fraud Control Intelligence Engine</p>
+                <h1 className="text-2xl font-bold text-foreground">AFC Fraud Simulator</h1>
+                <p className="text-sm text-muted-foreground">Aktia Bank - Anti-Fraud Control Intelligence Engine</p>
               </div>
             </div>
             <div className="flex items-center gap-3">
@@ -104,7 +104,7 @@ export function Simulator() {
               <Button
                 onClick={runSimulation}
                 disabled={isRunning}
-                className="gap-2 bg-aktia-gold text-aktia-navy hover:bg-aktia-gold-dark"
+                className="gap-2 bg-aktia-green text-white hover:bg-aktia-green-hover"
               >
                 <Play className="h-4 w-4" />
                 {isRunning ? "Running..." : "Run Simulation"}
@@ -125,7 +125,7 @@ export function Simulator() {
                 height={40}
                 className="rounded-lg"
               />
-              <h1 className="text-lg font-bold text-white">AFC Fraud Simulator</h1>
+              <h1 className="text-lg font-bold text-foreground">AFC Fraud Simulator</h1>
             </div>
 
             {/* Controls Panel */}
@@ -137,7 +137,7 @@ export function Simulator() {
                   className={cn(
                     "flex items-center gap-1.5 rounded-md px-2.5 py-1.5 text-xs font-medium transition-all",
                     viewMode === "desktop"
-                      ? "bg-aktia-gold text-aktia-navy"
+                      ? "bg-aktia-green text-white"
                       : "text-muted-foreground hover:text-foreground"
                   )}
                 >
@@ -149,7 +149,7 @@ export function Simulator() {
                   className={cn(
                     "flex items-center gap-1.5 rounded-md px-2.5 py-1.5 text-xs font-medium transition-all",
                     viewMode === "mobile"
-                      ? "bg-aktia-gold text-aktia-navy"
+                      ? "bg-aktia-green text-white"
                       : "text-muted-foreground hover:text-foreground"
                   )}
                 >
@@ -170,7 +170,7 @@ export function Simulator() {
                   onClick={runSimulation}
                   disabled={isRunning}
                   size="sm"
-                  className="gap-1.5 bg-aktia-gold px-3 text-aktia-navy hover:bg-aktia-gold-dark"
+                  className="gap-1.5 bg-aktia-green px-3 text-white hover:bg-aktia-green-hover"
                 >
                   <Play className="h-3.5 w-3.5" />
                   {isRunning ? "Running..." : "Run"}
@@ -241,7 +241,7 @@ export function Simulator() {
                 className={cn(
                   "flex-1 px-4 py-3 text-sm font-medium transition-all",
                   activeMobileTab === "terminal"
-                    ? "border-b-2 border-aktia-gold text-foreground"
+                    ? "border-b-2 border-aktia-green text-foreground"
                     : "text-muted-foreground hover:text-foreground"
                 )}
               >
@@ -252,7 +252,7 @@ export function Simulator() {
                 className={cn(
                   "flex-1 px-4 py-3 text-sm font-medium transition-all",
                   activeMobileTab === "reasoning"
-                    ? "border-b-2 border-aktia-gold text-foreground"
+                    ? "border-b-2 border-aktia-green text-foreground"
                     : "text-muted-foreground hover:text-foreground"
                 )}
               >
@@ -263,7 +263,7 @@ export function Simulator() {
                 className={cn(
                   "flex-1 px-4 py-3 text-sm font-medium transition-all",
                   activeMobileTab === "mobile"
-                    ? "border-b-2 border-aktia-gold text-foreground"
+                    ? "border-b-2 border-aktia-green text-foreground"
                     : "text-muted-foreground hover:text-foreground"
                 )}
               >

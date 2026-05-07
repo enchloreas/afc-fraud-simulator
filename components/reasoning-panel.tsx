@@ -177,9 +177,9 @@ export function ReasoningPanel({ reasoning, isProcessing, isComplete, onComplete
             ))}
 
             {isProcessing && currentStep < (reasoning?.steps.length || 0) && (
-              <div className="flex items-center gap-3 rounded-lg border border-aktia/50 bg-card/50 p-3">
-                <Loader2 className="h-4 w-4 animate-spin text-aktia-gold" />
-                <span className="text-sm text-aktia-gold">Processing...</span>
+              <div className="flex items-center gap-3 rounded-lg border border-aktia-green/50 bg-card/50 p-3">
+                <Loader2 className="h-4 w-4 animate-spin text-aktia-green" />
+                <span className="text-sm text-aktia-green">Processing...</span>
               </div>
             )}
           </div>
