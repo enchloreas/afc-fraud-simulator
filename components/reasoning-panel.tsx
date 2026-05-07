@@ -120,11 +120,11 @@ export function ReasoningPanel({ reasoning, isProcessing, isComplete, onComplete
   const getVerdictText = (color: "green" | "yellow" | "red") => {
     switch (color) {
       case "green":
-        return { text: "APPROVED", className: "text-green-400 bg-green-900/30" }
+        return { text: "APPROVED", className: "text-green-700 bg-green-100" }
       case "yellow":
-        return { text: "REVIEW", className: "text-yellow-400 bg-yellow-900/30" }
+        return { text: "REVIEW", className: "text-amber-700 bg-amber-100" }
       case "red":
-        return { text: "BLOCKED", className: "text-red-400 bg-red-900/30" }
+        return { text: "BLOCKED", className: "text-red-700 bg-red-100" }
     }
   }
 
