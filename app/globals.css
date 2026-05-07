@@ -13,7 +13,7 @@
 :root {
   /* Aktia Brand Colors - Light Theme (Default) */
   --aktia-green: oklch(0.48 0.16 145);
-  --aktia-green-hover: oklch(0.42 0.16 145);
+  --aktia-green-hover: oklch(0.52 0.18 145);
   --aktia-green-light: oklch(0.94 0.03 145);
   --aktia-dark: oklch(0.18 0.02 250);
   --aktia-gray: oklch(0.45 0.01 250);
@@ -129,7 +129,7 @@
   }
   
   .hover\:bg-aktia-green-hover:hover {
-    background-color: oklch(0.42 0.16 145);
+    background-color: oklch(0.52 0.18 145);
   }
   
   .text-aktia-green {
