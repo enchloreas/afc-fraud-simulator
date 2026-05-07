@@ -123,9 +123,9 @@ export function MobilePanel({ mobile, isVisible, onVerificationComplete, onFraud
             <div className="absolute left-1/2 top-3 z-10 h-6 w-24 -translate-x-1/2 rounded-full bg-black" />
 
             {/* Screen */}
-            <div className="relative min-h-[520px] overflow-hidden rounded-[2rem] bg-aktia-dark">
+            <div className="relative flex h-[560px] flex-col overflow-hidden rounded-[2rem] bg-aktia-dark">
               {/* Status Bar */}
-              <div className="flex items-center justify-between px-6 pb-2 pt-10 text-white">
+              <div className="flex flex-shrink-0 items-center justify-between px-6 pb-2 pt-10 text-white">
                 <span className="text-sm font-medium">{currentTime}</span>
                 <div className="flex items-center gap-1">
                   <Signal className="h-4 w-4" />
@@ -135,7 +135,7 @@ export function MobilePanel({ mobile, isVisible, onVerificationComplete, onFraud
               </div>
 
               {/* App Header */}
-              <div className="border-b border-white/10 px-6 pb-4">
+              <div className="flex-shrink-0 border-b border-white/10 px-6 pb-4">
                 <div className="flex items-center gap-2">
                   <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-aktia-green">
                     <span className="text-sm font-bold text-white">A</span>
@@ -144,8 +144,8 @@ export function MobilePanel({ mobile, isVisible, onVerificationComplete, onFraud
                 </div>
               </div>
 
-              {/* Content Area */}
-              <div className="p-6" style={{ color: "oklab(0.981998 -0.0164295 0.00739342 / 0.5)" }}>
+              {/* Content Area — scrollable, padded bottom so content clears the nav bar */}
+              <div className="flex-1 overflow-y-auto pb-20 p-6" style={{ color: "oklab(0.981998 -0.0164295 0.00739342 / 0.5)" }}>
                 {!showContent || !mobile ? (
                   <div className="flex flex-col items-center justify-center py-12">
                     <div className="mb-4 h-12 w-12 animate-pulse rounded-full bg-white/20" />
@@ -266,7 +266,7 @@ export function MobilePanel({ mobile, isVisible, onVerificationComplete, onFraud
               </div>
 
               {/* Bottom Navigation */}
-              <div className="absolute bottom-0 left-0 right-0 border-t border-white/10 bg-black/20 px-6 py-4">
+              <div className="absolute bottom-0 left-0 right-0 z-10 border-t border-white/10 bg-aktia-dark px-6 py-4">
                 <div className="flex justify-around">
                   {[
                     { label: "Home", icon: Home },
