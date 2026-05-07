@@ -104,7 +104,7 @@ export function Simulator() {
               <Button
                 onClick={runSimulation}
                 disabled={isRunning}
-                className="gap-2 bg-aktia-green text-white hover:bg-aktia-green-hover"
+                className="gap-2 bg-aktia-green text-white shadow-md hover:bg-aktia-green-hover hover:shadow-lg disabled:opacity-60"
               >
                 <Play className="h-4 w-4" />
                 {isRunning ? "Running..." : "Run Simulation"}
@@ -170,7 +170,7 @@ export function Simulator() {
                   onClick={runSimulation}
                   disabled={isRunning}
                   size="sm"
-                  className="gap-1.5 bg-aktia-green px-3 text-white hover:bg-aktia-green-hover"
+                  className="gap-1.5 bg-aktia-green px-3 text-white shadow-md hover:bg-aktia-green-hover hover:shadow-lg disabled:opacity-60"
                 >
                   <Play className="h-3.5 w-3.5" />
                   {isRunning ? "Running..." : "Run"}
@@ -201,7 +201,7 @@ export function Simulator() {
             isMobile && viewMode === "desktop" ? "w-[200%] origin-top-left scale-50" : "w-full"
           )}>
             {/* Panel 1: Terminal */}
-            <div className="w-1/3 border-r border-border bg-card/30 p-6">
+            <div className="w-1/3 border-r border-border bg-card p-6">
               <TerminalPanel
                 state={terminalState}
                 payload={simulatorOutput?.panel_left_json || null}
@@ -209,7 +209,7 @@ export function Simulator() {
             </div>
 
             {/* Panel 2: Reasoning */}
-            <div className="w-1/3 border-r border-border bg-card/20 p-6">
+            <div className="w-1/3 border-r border-border bg-secondary/50 p-6">
               <ReasoningPanel
                 reasoning={simulatorOutput?.panel_center_reasoning || null}
                 isProcessing={phase === "reasoning"}
@@ -219,7 +219,7 @@ export function Simulator() {
             </div>
 
             {/* Panel 3: Mobile */}
-            <div className="w-1/3 bg-card/10 p-6">
+            <div className="w-1/3 bg-muted/30 p-6">
               <MobilePanel
                 mobile={simulatorOutput?.panel_right_mobile || null}
                 isVisible={phase === "mobile" || phase === "complete"}

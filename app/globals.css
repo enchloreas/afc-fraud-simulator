@@ -12,30 +12,30 @@
 
 :root {
   /* Aktia Brand Colors - Light Theme (Default) */
-  --aktia-green: oklch(0.55 0.15 145);
-  --aktia-green-hover: oklch(0.48 0.15 145);
-  --aktia-green-light: oklch(0.92 0.03 145);
-  --aktia-dark: oklch(0.25 0.01 250);
-  --aktia-gray: oklch(0.55 0.01 250);
+  --aktia-green: oklch(0.48 0.16 145);
+  --aktia-green-hover: oklch(0.42 0.16 145);
+  --aktia-green-light: oklch(0.94 0.03 145);
+  --aktia-dark: oklch(0.18 0.02 250);
+  --aktia-gray: oklch(0.45 0.01 250);
   
-  --background: oklch(0.97 0 0);
-  --foreground: oklch(0.2 0.01 250);
+  --background: oklch(0.98 0 0);
+  --foreground: oklch(0.15 0.01 250);
   --card: oklch(1 0 0);
-  --card-foreground: oklch(0.2 0.01 250);
+  --card-foreground: oklch(0.15 0.01 250);
   --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.2 0.01 250);
+  --popover-foreground: oklch(0.15 0.01 250);
   --primary: var(--aktia-green);
   --primary-foreground: oklch(1 0 0);
-  --secondary: oklch(0.95 0 0);
-  --secondary-foreground: oklch(0.3 0.01 250);
-  --muted: oklch(0.95 0 0);
-  --muted-foreground: oklch(0.5 0.01 250);
+  --secondary: oklch(0.96 0 0);
+  --secondary-foreground: oklch(0.25 0.01 250);
+  --muted: oklch(0.96 0 0);
+  --muted-foreground: oklch(0.4 0.01 250);
   --accent: var(--aktia-green-light);
   --accent-foreground: var(--aktia-green);
-  --destructive: oklch(0.55 0.2 25);
+  --destructive: oklch(0.5 0.22 25);
   --destructive-foreground: oklch(1 0 0);
-  --border: oklch(0.88 0 0);
-  --input: oklch(0.88 0 0);
+  --border: oklch(0.85 0 0);
+  --input: oklch(0.85 0 0);
   --ring: var(--aktia-green);
   --chart-1: var(--aktia-green);
   --chart-2: oklch(0.6 0.12 200);
@@ -125,31 +125,36 @@
 /* Custom Aktia-specific utility classes */
 @layer utilities {
   .bg-aktia-green {
-    background-color: oklch(0.55 0.15 145);
+    background-color: oklch(0.48 0.16 145);
   }
   
   .hover\:bg-aktia-green-hover:hover {
-    background-color: oklch(0.48 0.15 145);
+    background-color: oklch(0.42 0.16 145);
   }
   
   .text-aktia-green {
-    color: oklch(0.55 0.15 145);
+    color: oklch(0.48 0.16 145);
   }
   
   .border-aktia-green {
-    border-color: oklch(0.55 0.15 145);
+    border-color: oklch(0.48 0.16 145);
   }
   
   .bg-aktia-dark {
-    background-color: oklch(0.15 0.02 250);
+    background-color: oklch(0.12 0.02 250);
   }
   
   .text-aktia-dark {
-    color: oklch(0.25 0.01 250);
+    color: oklch(0.18 0.01 250);
+  }
+  
+  /* Focus states for accessibility */
+  .focus-ring {
+    @apply focus:outline-none focus-visible:ring-2 focus-visible:ring-aktia-green focus-visible:ring-offset-2;
   }
   
   /* Terminal dark panel styling */
   .terminal-screen {
-    background: linear-gradient(180deg, oklch(0.12 0.02 250) 0%, oklch(0.15 0.02 250) 100%);
+    background: linear-gradient(180deg, oklch(0.10 0.02 250) 0%, oklch(0.12 0.02 250) 100%);
   }
 }

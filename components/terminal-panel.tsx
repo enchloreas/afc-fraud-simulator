@@ -54,12 +54,12 @@ export function TerminalPanel({ state, payload, onComplete }: TerminalPanelProps
   return (
     <div className="flex h-full flex-col">
       <div className="mb-4 border-b border-border pb-3">
-        <h2 className="text-lg font-semibold text-foreground">Payment Terminal</h2>
+        <h2 className="text-lg font-bold text-foreground">Payment Terminal</h2>
         <p className="text-sm text-muted-foreground">POS Hardware Emulator</p>
       </div>
 
       {/* Terminal Screen */}
-      <Card className="mb-4 border-2 border-border bg-card">
+      <Card className="mb-4 border-2 border-border bg-card shadow-lg">
         <CardContent className="p-0">
           <div className="rounded-t-lg bg-secondary px-4 py-2">
             <div className="flex items-center justify-between">
@@ -108,7 +108,7 @@ export function TerminalPanel({ state, payload, onComplete }: TerminalPanelProps
             <span className="rounded bg-emerald-900/50 px-2 py-0.5 text-xs text-emerald-400">TRANSMITTED</span>
           )}
         </div>
-        <div className="h-[calc(100%-2rem)] overflow-auto rounded-lg border border-border bg-card/50 p-3">
+        <div className="h-[calc(100%-2rem)] overflow-auto rounded-lg border border-border bg-secondary/30 p-3 font-mono">
           {payload && showPayload ? (
             <pre className="text-xs leading-relaxed text-foreground/70">
               <code>{JSON.stringify(payload, null, 2)}</code>

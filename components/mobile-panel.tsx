@@ -86,7 +86,7 @@ export function MobilePanel({ mobile, isVisible, onVerificationComplete, onFraud
   return (
     <div className="flex h-full flex-col">
       <div className="mb-4 border-b border-border pb-3">
-        <h2 className="text-lg font-semibold text-foreground">Aktia Mobile</h2>
+        <h2 className="text-lg font-bold text-foreground">Aktia Mobile</h2>
         <p className="text-sm text-muted-foreground">Customer Notification</p>
       </div>
 
@@ -94,7 +94,7 @@ export function MobilePanel({ mobile, isVisible, onVerificationComplete, onFraud
       <div className="flex flex-1 items-center justify-center">
         <div className="relative w-full max-w-[280px]">
           {/* Phone outer frame */}
-          <div className="overflow-hidden rounded-[2.5rem] border-[8px] border-secondary bg-secondary shadow-2xl">
+          <div className="overflow-hidden rounded-[2.5rem] border-[8px] border-gray-800 bg-gray-800 shadow-2xl">
             {/* Dynamic Island */}
             <div className="absolute left-1/2 top-3 z-10 h-6 w-24 -translate-x-1/2 rounded-full bg-black" />
 

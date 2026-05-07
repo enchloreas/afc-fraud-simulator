@@ -131,7 +131,7 @@ export function ReasoningPanel({ reasoning, isProcessing, isComplete, onComplete
   return (
     <div className="flex flex-col">
       <div className="mb-4 border-b border-border pb-3">
-        <h2 className="text-lg font-semibold text-foreground">Agent&apos;s Eyes</h2>
+        <h2 className="text-lg font-bold text-foreground">Agent&apos;s Eyes</h2>
         <p className="text-sm text-muted-foreground">Real-time Fraud Analysis</p>
       </div>
 
@@ -152,9 +152,10 @@ export function ReasoningPanel({ reasoning, isProcessing, isComplete, onComplete
               <div
                 key={step.id}
                 className={cn(
-                  "flex items-start gap-3 rounded-lg border border-border/50 bg-card/50 p-3 transition-all duration-300",
-                  step.result === "fail" && "border-red-900/50 bg-red-900/10",
-                  step.result === "warning" && "border-amber-900/50 bg-amber-900/10"
+                  "flex items-start gap-3 rounded-lg border border-border bg-card p-3 shadow-sm transition-all duration-300",
+                  step.result === "fail" && "border-red-400/50 bg-red-50",
+                  step.result === "warning" && "border-amber-400/50 bg-amber-50",
+                  step.result === "pass" && "border-green-400/30 bg-green-50/50"
                 )}
                 style={{
                   animation: "fadeSlideIn 0.3s ease-out",
@@ -165,10 +166,10 @@ export function ReasoningPanel({ reasoning, isProcessing, isComplete, onComplete
                 <div className="mt-0.5">{getStepIcon(step)}</div>
                 <span
                   className={cn(
-                    "text-sm",
-                    step.result === "pass" && "text-foreground/80",
-                    step.result === "fail" && "text-red-300",
-                    step.result === "warning" && "text-amber-300"
+                    "text-sm font-medium",
+                    step.result === "pass" && "text-foreground",
+                    step.result === "fail" && "text-red-700",
+                    step.result === "warning" && "text-amber-700"
                   )}
                 >
                   {step.text}
@@ -189,7 +190,7 @@ export function ReasoningPanel({ reasoning, isProcessing, isComplete, onComplete
       {/* Risk Score */}
       {showScore && reasoning && (
         <div className="mt-4 border-t border-border pt-4">
-          <div className="rounded-lg border border-border bg-card/50 p-4">
+          <div className="rounded-lg border border-border bg-card p-4 shadow-sm">
             <div className="mb-3 flex items-center justify-between">
               <span className="text-sm font-medium text-muted-foreground">Risk Score</span>
               <span className={cn("text-2xl font-bold", getScoreColor(reasoning.risk_score))}>
