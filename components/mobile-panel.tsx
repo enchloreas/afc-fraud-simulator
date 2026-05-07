@@ -263,7 +263,7 @@ export function MobilePanel({ mobile, isVisible, onVerificationComplete, onFraud
                     {showDeclined && (
                       <button
                         className="flex w-full items-center justify-center gap-2 rounded-xl py-3.5 font-semibold text-white transition-all hover:opacity-90"
-                        style={{ backgroundColor: "#f97316" }}
+                        style={{ backgroundColor: "#ff8c42" }}
                       >
                         Contact Support
                       </button>
