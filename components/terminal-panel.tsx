@@ -105,7 +105,7 @@ export function TerminalPanel({ state, payload, onComplete }: TerminalPanelProps
         <div className="mb-2 flex items-center justify-between">
           <h3 className="text-sm font-medium text-foreground/80">Raw Transaction Payload</h3>
           {showPayload && (
-            <span className="rounded bg-emerald-900/50 px-2 py-0.5 text-xs text-emerald-400">TRANSMITTED</span>
+            <span className="rounded bg-green-100 px-2 py-0.5 text-xs font-medium text-green-700">TRANSMITTED</span>
           )}
         </div>
         <div className="h-[calc(100%-2rem)] overflow-auto rounded-lg border border-border bg-secondary/30 p-3 font-mono">
