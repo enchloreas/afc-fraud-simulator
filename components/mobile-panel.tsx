@@ -134,7 +134,7 @@ export function MobilePanel({ mobile, isVisible, onVerificationComplete, onFraud
       <div className="flex flex-1 items-center justify-center">
         <div className="relative w-full max-w-[280px]">
           {/* Phone outer frame */}
-          <div className="overflow-hidden rounded-[2.5rem] border-[8px] border-gray-800 shadow-2xl" style={{ backgroundColor: "oklab(0.981998 -0.0164295 0.00739342 / 0.5)" }}>
+          <div className="overflow-hidden rounded-[2.5rem] border-[8px] border-gray-800 bg-gray-800/50 shadow-2xl">
             {/* Dynamic Island */}
             <div className="absolute left-1/2 top-3 z-10 h-6 w-24 -translate-x-1/2 rounded-full bg-black" />
 
@@ -153,7 +153,7 @@ export function MobilePanel({ mobile, isVisible, onVerificationComplete, onFraud
               {/* App Header */}
               <div className="flex-shrink-0 border-b border-white/10 px-6 pb-4">
                 <div className="flex items-center gap-2">
-                  <div className="flex h-8 w-8 items-center justify-center rounded-lg" style={{ backgroundColor: "lab(78.503 -64.9265 39.7492)" }}>
+                  <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-aktia-green">
                     <span className="text-sm font-bold text-white">A</span>
                   </div>
                   <span className="text-lg font-semibold text-white">Aktia TrustControl</span>
@@ -161,7 +161,7 @@ export function MobilePanel({ mobile, isVisible, onVerificationComplete, onFraud
               </div>
 
               {/* Content Area — scrollable, padded bottom so content clears the nav bar */}
-              <div className="flex-1 overflow-y-auto pb-20 p-6" style={{ color: "oklab(0.981998 -0.0164295 0.00739342 / 0.5)" }}>
+              <div className="flex-1 overflow-y-auto pb-20 p-6">
                 {!showContent || !mobile ? (
                   <div className="flex flex-col items-center justify-center py-12">
                     <div className="mb-4 h-12 w-12 animate-pulse rounded-full bg-white/20" />
@@ -255,16 +255,14 @@ export function MobilePanel({ mobile, isVisible, onVerificationComplete, onFraud
 
                     {showSuccess && (
                       <button
-                        className="flex w-full items-center justify-center gap-2 rounded-xl py-3.5 font-semibold text-white transition-all"
-                        style={{ backgroundColor: "lab(78.503 -64.9265 39.7492)" }}
+                        className="flex w-full items-center justify-center gap-2 rounded-xl bg-aktia-green py-3.5 font-semibold text-white transition-all hover:bg-aktia-green-hover"
                       >
                         View Details
                       </button>
                     )}
                     {showDeclined && (
                       <button
-                        className="flex w-full items-center justify-center gap-2 rounded-xl py-3.5 font-semibold text-white transition-all"
-                        style={{ backgroundColor: "lab(63.7053 60.745 31.3109)" }}
+                        className="flex w-full items-center justify-center gap-2 rounded-xl bg-orange-500 py-3.5 font-semibold text-white transition-all hover:bg-orange-600"
                       >
                         Contact Support
                       </button>
@@ -293,7 +291,7 @@ export function MobilePanel({ mobile, isVisible, onVerificationComplete, onFraud
                     { label: "More", Icon: MoreIcon },
                   ].map(({ label, Icon }) => (
                     <div key={label} className="flex flex-col items-center gap-1.5">
-                      <Icon className="h-5 w-5" style={{ color: "lab(78.503 -64.9265 39.7492)" }} />
+                      <Icon className="h-5 w-5 text-aktia-green" />
                       <span className="text-[10px] font-medium text-white/80">{label}</span>
                     </div>
                   ))}
