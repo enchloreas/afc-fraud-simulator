@@ -75,7 +75,7 @@ export function Simulator() {
   const isRunning = phase !== "idle" && phase !== "complete"
 
   return (
-    <div className="flex h-screen flex-col overflow-auto bg-background">
+    <div className="flex h-screen flex-col bg-background">
       {/* Header */}
       <header className="border-b border-border bg-card px-4 py-3 md:px-6 md:py-4">
         {/* Desktop Header Layout */}
@@ -193,7 +193,7 @@ export function Simulator() {
       </div>
 
       {/* Main 3-Panel Layout */}
-      <main className="flex flex-1 overflow-hidden">
+      <main className="flex flex-1 overflow-auto">
         {/* Desktop Layout or Desktop View on Mobile */}
         {(!isMobile || viewMode === "desktop") && (
           <div className={cn(
