@@ -271,7 +271,6 @@ export function MobilePanel({ mobile, isVisible, onVerificationComplete, onFraud
                   {[
                     { label: "Home", icon: Home },
                     { label: "Cards", icon: CreditCard },
-                    { label: "More", icon: MoreHorizontal },
                   ].map(({ label, icon: Icon }) => (
                     <div key={label} className="flex flex-col items-center gap-1">
                       <div className="flex h-8 w-8 items-center justify-center rounded-full bg-white/10">
@@ -285,6 +284,12 @@ export function MobilePanel({ mobile, isVisible, onVerificationComplete, onFraud
                       <PayIcon className="h-4 w-4 text-white/70" />
                     </div>
                     <span className="text-[10px] text-white/60">Pay</span>
+                  </div>
+                  <div className="flex flex-col items-center gap-1">
+                    <div className="flex h-8 w-8 items-center justify-center rounded-full bg-white/10">
+                      <MoreHorizontal className="h-4 w-4 text-white/70" />
+                    </div>
+                    <span className="text-[10px] text-white/60">More</span>
                   </div>
                 </div>
               </div>
