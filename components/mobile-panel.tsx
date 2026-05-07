@@ -3,7 +3,31 @@
 import { useEffect, useState } from "react"
 import type { PanelRightMobile } from "@/lib/types"
 import { cn } from "@/lib/utils"
-import { Shield, CheckCircle, Phone, ChevronRight, Wifi, Battery, Signal, AlertTriangle, Fingerprint, Loader2, ShieldAlert, XCircle, Home, CreditCard, Send, MoreHorizontal } from "lucide-react"
+import { Shield, CheckCircle, Phone, ChevronRight, Wifi, Battery, Signal, AlertTriangle, Fingerprint, Loader2, ShieldAlert, XCircle, Home, CreditCard, MoreHorizontal } from "lucide-react"
+
+function PayIcon({ className }: { className?: string }) {
+  return (
+    <svg
+      viewBox="0 0 48 48"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      className={className}
+      aria-hidden="true"
+    >
+      {/* Coin circle */}
+      <circle cx="28" cy="13" r="9" />
+      {/* Dollar sign vertical */}
+      <line x1="28" y1="9" x2="28" y2="17" />
+      {/* Dollar sign top arc */}
+      <path d="M31 10.5c-1-1-5-1.5-5 1.5s4 2.5 5 3.5 1.5 4-3 4" />
+      {/* Open hand / palm */}
+      <path d="M6 32c0 0 2-4 6-4h10l5 1c2 .5 4 2 5 4l4-2c1.5-.5 3 .5 3 2s-1 2-2 2.5L26 40c-2 1-4 1-6 1H8c-1 0-2-1-2-2v-7z" />
+    </svg>
+  )
+}
 import type { TerminalState } from "@/lib/types"
 
 interface MobilePanelProps {
@@ -247,7 +271,6 @@ export function MobilePanel({ mobile, isVisible, onVerificationComplete, onFraud
                   {[
                     { label: "Home", icon: Home },
                     { label: "Cards", icon: CreditCard },
-                    { label: "Pay", icon: Send },
                     { label: "More", icon: MoreHorizontal },
                   ].map(({ label, icon: Icon }) => (
                     <div key={label} className="flex flex-col items-center gap-1">
@@ -257,6 +280,12 @@ export function MobilePanel({ mobile, isVisible, onVerificationComplete, onFraud
                       <span className="text-[10px] text-white/60">{label}</span>
                     </div>
                   ))}
+                  <div className="flex flex-col items-center gap-1">
+                    <div className="flex h-8 w-8 items-center justify-center rounded-full bg-white/10">
+                      <PayIcon className="h-4 w-4 text-white/70" />
+                    </div>
+                    <span className="text-[10px] text-white/60">Pay</span>
+                  </div>
                 </div>
               </div>
             </div>
