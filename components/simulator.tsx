@@ -90,7 +90,7 @@ export function Simulator() {
                 className="rounded-lg"
               />
               <div>
-                <h1 className="text-2xl font-bold text-foreground">AFC Fraud Simulator</h1>
+                <h1 className="text-2xl font-bold text-foreground">Aktia TrustControl AFC Fraud Simulator</h1>
                 <p className="text-sm text-muted-foreground">Aktia Bank - Anti-Fraud Control Intelligence Engine</p>
               </div>
             </div>

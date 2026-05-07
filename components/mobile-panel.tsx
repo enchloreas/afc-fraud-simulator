@@ -3,7 +3,31 @@
 import { useEffect, useState } from "react"
 import type { PanelRightMobile } from "@/lib/types"
 import { cn } from "@/lib/utils"
-import { Shield, CheckCircle, Phone, ChevronRight, Wifi, Battery, Signal, AlertTriangle, Fingerprint, Loader2, ShieldAlert, XCircle } from "lucide-react"
+import { Shield, CheckCircle, Phone, ChevronRight, Wifi, Battery, Signal, AlertTriangle, Fingerprint, Loader2, ShieldAlert, XCircle, Home, CreditCard, MoreHorizontal } from "lucide-react"
+
+function PayIcon({ className }: { className?: string }) {
+  return (
+    <svg
+      viewBox="0 0 48 48"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      className={className}
+      aria-hidden="true"
+    >
+      {/* Coin circle */}
+      <circle cx="28" cy="13" r="9" />
+      {/* Dollar sign vertical */}
+      <line x1="28" y1="9" x2="28" y2="17" />
+      {/* Dollar sign top arc */}
+      <path d="M31 10.5c-1-1-5-1.5-5 1.5s4 2.5 5 3.5 1.5 4-3 4" />
+      {/* Open hand / palm */}
+      <path d="M6 32c0 0 2-4 6-4h10l5 1c2 .5 4 2 5 4l4-2c1.5-.5 3 .5 3 2s-1 2-2 2.5L26 40c-2 1-4 1-6 1H8c-1 0-2-1-2-2v-7z" />
+    </svg>
+  )
+}
 import type { TerminalState } from "@/lib/types"
 
 interface MobilePanelProps {
@@ -87,14 +111,14 @@ export function MobilePanel({ mobile, isVisible, onVerificationComplete, onFraud
     <div className="flex h-full flex-col">
       <div className="mb-4 border-b border-border pb-3">
         <h2 className="text-lg font-bold text-foreground">Aktia Mobile</h2>
-        <p className="text-sm text-muted-foreground">Customer Notification</p>
+        <p className="text-sm text-muted-foreground">iPhone 17 Pro Max • Customer Notification</p>
       </div>
 
       {/* Phone Frame */}
       <div className="flex flex-1 items-center justify-center">
         <div className="relative w-full max-w-[280px]">
           {/* Phone outer frame */}
-          <div className="overflow-hidden rounded-[2.5rem] border-[8px] border-gray-800 bg-gray-800 shadow-2xl">
+          <div className="overflow-hidden rounded-[2.5rem] border-[8px] border-gray-800 shadow-2xl" style={{ backgroundColor: "oklab(0.981998 -0.0164295 0.00739342 / 0.5)" }}>
             {/* Dynamic Island */}
             <div className="absolute left-1/2 top-3 z-10 h-6 w-24 -translate-x-1/2 rounded-full bg-black" />
 
@@ -116,12 +140,12 @@ export function MobilePanel({ mobile, isVisible, onVerificationComplete, onFraud
                   <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-aktia-green">
                     <span className="text-sm font-bold text-white">A</span>
                   </div>
-                  <span className="text-lg font-semibold text-white">Aktia</span>
+                  <span className="text-lg font-semibold text-white">Aktia TrustControl</span>
                 </div>
               </div>
 
               {/* Content Area */}
-              <div className="p-6">
+              <div className="p-6" style={{ color: "oklab(0.981998 -0.0164295 0.00739342 / 0.5)" }}>
                 {!showContent || !mobile ? (
                   <div className="flex flex-col items-center justify-center py-12">
                     <div className="mb-4 h-12 w-12 animate-pulse rounded-full bg-white/20" />
@@ -244,12 +268,29 @@ export function MobilePanel({ mobile, isVisible, onVerificationComplete, onFraud
               {/* Bottom Navigation */}
               <div className="absolute bottom-0 left-0 right-0 border-t border-white/10 bg-black/20 px-6 py-4">
                 <div className="flex justify-around">
-                  {["Home", "Cards", "Pay", "More"].map((item) => (
-                    <div key={item} className="flex flex-col items-center gap-1">
-                      <div className="h-5 w-5 rounded-full bg-white/20" />
-                      <span className="text-[10px] text-white/60">{item}</span>
+                  {[
+                    { label: "Home", icon: Home },
+                    { label: "Cards", icon: CreditCard },
+                  ].map(({ label, icon: Icon }) => (
+                    <div key={label} className="flex flex-col items-center gap-1">
+                      <div className="flex h-8 w-8 items-center justify-center rounded-full bg-white/10">
+                        <Icon className="h-4 w-4 text-white/70" />
+                      </div>
+                      <span className="text-[10px] text-white/60">{label}</span>
                     </div>
                   ))}
+                  <div className="flex flex-col items-center gap-1">
+                    <div className="flex h-8 w-8 items-center justify-center rounded-full bg-white/10">
+                      <PayIcon className="h-4 w-4 text-white/70" />
+                    </div>
+                    <span className="text-[10px] text-white/60">Pay</span>
+                  </div>
+                  <div className="flex flex-col items-center gap-1">
+                    <div className="flex h-8 w-8 items-center justify-center rounded-full bg-white/10">
+                      <MoreHorizontal className="h-4 w-4 text-white/70" />
+                    </div>
+                    <span className="text-[10px] text-white/60">More</span>
+                  </div>
                 </div>
               </div>
             </div>
