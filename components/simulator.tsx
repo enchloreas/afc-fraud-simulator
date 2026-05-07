@@ -75,9 +75,9 @@ export function Simulator() {
   const isRunning = phase !== "idle" && phase !== "complete"
 
   return (
-    <div className="flex h-screen flex-col bg-slate-950">
+    <div className="flex h-screen flex-col bg-aktia-gradient">
       {/* Header */}
-      <header className="border-b border-slate-800 bg-slate-900 px-4 py-3 md:px-6 md:py-4">
+      <header className="border-b border-aktia bg-card px-4 py-3 md:px-6 md:py-4">
         {/* Desktop Header Layout */}
         {!isMobile && (
           <div className="flex items-center justify-between gap-4">
@@ -104,7 +104,7 @@ export function Simulator() {
               <Button
                 onClick={runSimulation}
                 disabled={isRunning}
-                className="gap-2 bg-[#002E6E] hover:bg-[#003d8f]"
+                className="gap-2 bg-aktia-gold text-aktia-navy hover:bg-aktia-gold-dark"
               >
                 <Play className="h-4 w-4" />
                 {isRunning ? "Running..." : "Run Simulation"}
@@ -131,14 +131,14 @@ export function Simulator() {
             {/* Controls Panel */}
             <div className="flex items-center justify-between gap-2">
               {/* View Mode Toggle */}
-              <div className="flex items-center rounded-lg border border-slate-700 bg-slate-800 p-1">
+              <div className="flex items-center rounded-lg border border-border bg-secondary p-1">
                 <button
                   onClick={() => setViewMode("desktop")}
                   className={cn(
                     "flex items-center gap-1.5 rounded-md px-2.5 py-1.5 text-xs font-medium transition-all",
                     viewMode === "desktop"
-                      ? "bg-[#002E6E] text-white"
-                      : "text-slate-400 hover:text-white"
+                      ? "bg-aktia-gold text-aktia-navy"
+                      : "text-muted-foreground hover:text-foreground"
                   )}
                 >
                   <Monitor className="h-3.5 w-3.5" />
@@ -149,8 +149,8 @@ export function Simulator() {
                   className={cn(
                     "flex items-center gap-1.5 rounded-md px-2.5 py-1.5 text-xs font-medium transition-all",
                     viewMode === "mobile"
-                      ? "bg-[#002E6E] text-white"
-                      : "text-slate-400 hover:text-white"
+                      ? "bg-aktia-gold text-aktia-navy"
+                      : "text-muted-foreground hover:text-foreground"
                   )}
                 >
                   <Smartphone className="h-3.5 w-3.5" />
@@ -170,7 +170,7 @@ export function Simulator() {
                   onClick={runSimulation}
                   disabled={isRunning}
                   size="sm"
-                  className="gap-1.5 bg-[#002E6E] px-3 hover:bg-[#003d8f]"
+                  className="gap-1.5 bg-aktia-gold px-3 text-aktia-navy hover:bg-aktia-gold-dark"
                 >
                   <Play className="h-3.5 w-3.5" />
                   {isRunning ? "Running..." : "Run"}
@@ -182,8 +182,8 @@ export function Simulator() {
       </header>
 
       {/* Scenario Selector */}
-      <div className="border-b border-slate-800 bg-slate-900/50 px-4 py-3 md:px-6 md:py-4">
-        <div className="mb-2 text-sm font-medium text-slate-400">Select Scenario</div>
+      <div className="border-b border-border bg-card/50 px-4 py-3 md:px-6 md:py-4">
+        <div className="mb-2 text-sm font-medium text-muted-foreground">Select Scenario</div>
         <ScenarioSelector
           scenarios={scenarios}
           selectedId={selectedScenario}
@@ -201,7 +201,7 @@ export function Simulator() {
             isMobile && viewMode === "desktop" ? "w-[200%] origin-top-left scale-50" : "w-full"
           )}>
             {/* Panel 1: Terminal */}
-            <div className="w-1/3 border-r border-slate-800 bg-slate-900/30 p-6">
+            <div className="w-1/3 border-r border-border bg-card/30 p-6">
               <TerminalPanel
                 state={terminalState}
                 payload={simulatorOutput?.panel_left_json || null}
@@ -209,7 +209,7 @@ export function Simulator() {
             </div>
 
             {/* Panel 2: Reasoning */}
-            <div className="w-1/3 border-r border-slate-800 bg-slate-900/20 p-6">
+            <div className="w-1/3 border-r border-border bg-card/20 p-6">
               <ReasoningPanel
                 reasoning={simulatorOutput?.panel_center_reasoning || null}
                 isProcessing={phase === "reasoning"}
@@ -219,7 +219,7 @@ export function Simulator() {
             </div>
 
             {/* Panel 3: Mobile */}
-            <div className="w-1/3 bg-slate-900/10 p-6">
+            <div className="w-1/3 bg-card/10 p-6">
               <MobilePanel
                 mobile={simulatorOutput?.panel_right_mobile || null}
                 isVisible={phase === "mobile" || phase === "complete"}
@@ -235,14 +235,14 @@ export function Simulator() {
         {isMobile && viewMode === "mobile" && (
           <div className="flex w-full flex-col">
             {/* Tab Navigation */}
-            <div className="flex border-b border-slate-800 bg-slate-900/50">
+            <div className="flex border-b border-border bg-card/50">
               <button
                 onClick={() => setActiveMobileTab("terminal")}
                 className={cn(
                   "flex-1 px-4 py-3 text-sm font-medium transition-all",
                   activeMobileTab === "terminal"
-                    ? "border-b-2 border-[#002E6E] text-white"
-                    : "text-slate-400 hover:text-white"
+                    ? "border-b-2 border-aktia-gold text-foreground"
+                    : "text-muted-foreground hover:text-foreground"
                 )}
               >
                 Terminal
@@ -252,8 +252,8 @@ export function Simulator() {
                 className={cn(
                   "flex-1 px-4 py-3 text-sm font-medium transition-all",
                   activeMobileTab === "reasoning"
-                    ? "border-b-2 border-[#002E6E] text-white"
-                    : "text-slate-400 hover:text-white"
+                    ? "border-b-2 border-aktia-gold text-foreground"
+                    : "text-muted-foreground hover:text-foreground"
                 )}
               >
                 Analysis
@@ -263,8 +263,8 @@ export function Simulator() {
                 className={cn(
                   "flex-1 px-4 py-3 text-sm font-medium transition-all",
                   activeMobileTab === "mobile"
-                    ? "border-b-2 border-[#002E6E] text-white"
-                    : "text-slate-400 hover:text-white"
+                    ? "border-b-2 border-aktia-gold text-foreground"
+                    : "text-muted-foreground hover:text-foreground"
                 )}
               >
                 Aktia Mobile
@@ -305,13 +305,13 @@ export function Simulator() {
       </main>
 
       {/* Footer */}
-      <footer className="border-t border-slate-800 bg-slate-900 px-4 py-2 md:px-6 md:py-3">
-        <div className="flex flex-col items-start gap-1 text-xs text-slate-500 md:flex-row md:items-center md:justify-between md:gap-0">
+      <footer className="border-t border-border bg-card px-4 py-2 md:px-6 md:py-3">
+        <div className="flex flex-col items-start gap-1 text-xs text-muted-foreground md:flex-row md:items-center md:justify-between md:gap-0">
           <span>Aktia Bank AFC Intelligence Engine v1.0</span>
           <div className="flex items-center gap-4">
             <span>
               Phase:{" "}
-              <span className="font-medium text-slate-400">
+              <span className="font-medium text-foreground/70">
                 {phase === "idle" && "Ready"}
                 {phase === "terminal" && "Processing Transaction"}
                 {phase === "reasoning" && "Analyzing"}

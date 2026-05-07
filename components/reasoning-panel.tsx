@@ -130,9 +130,9 @@ export function ReasoningPanel({ reasoning, isProcessing, isComplete, onComplete
 
   return (
     <div className="flex flex-col">
-      <div className="mb-4 border-b border-slate-700 pb-3">
-        <h2 className="text-lg font-semibold text-white">Agent&apos;s Eyes</h2>
-        <p className="text-sm text-slate-400">Real-time Fraud Analysis</p>
+      <div className="mb-4 border-b border-border pb-3">
+        <h2 className="text-lg font-semibold text-foreground">Agent&apos;s Eyes</h2>
+        <p className="text-sm text-muted-foreground">Real-time Fraud Analysis</p>
       </div>
 
       {/* Reasoning Steps */}
@@ -140,10 +140,10 @@ export function ReasoningPanel({ reasoning, isProcessing, isComplete, onComplete
         {visibleSteps.length === 0 && !isProcessing && !isComplete ? (
           <div className="flex h-full items-center justify-center">
             <div className="text-center">
-              <div className="mx-auto mb-3 flex h-12 w-12 items-center justify-center rounded-full border-2 border-dashed border-slate-600">
-                <Loader2 className="h-6 w-6 text-slate-500" />
+              <div className="mx-auto mb-3 flex h-12 w-12 items-center justify-center rounded-full border-2 border-dashed border-border">
+                <Loader2 className="h-6 w-6 text-muted-foreground" />
               </div>
-              <p className="text-sm text-slate-500">Waiting for transaction data...</p>
+              <p className="text-sm text-muted-foreground">Waiting for transaction data...</p>
             </div>
           </div>
         ) : (
@@ -152,9 +152,9 @@ export function ReasoningPanel({ reasoning, isProcessing, isComplete, onComplete
               <div
                 key={step.id}
                 className={cn(
-                  "flex items-start gap-3 rounded-lg border border-slate-700/50 bg-slate-800/50 p-3 transition-all duration-300",
+                  "flex items-start gap-3 rounded-lg border border-border/50 bg-card/50 p-3 transition-all duration-300",
                   step.result === "fail" && "border-red-900/50 bg-red-900/10",
-                  step.result === "warning" && "border-yellow-900/50 bg-yellow-900/10"
+                  step.result === "warning" && "border-amber-900/50 bg-amber-900/10"
                 )}
                 style={{
                   animation: "fadeSlideIn 0.3s ease-out",
@@ -166,9 +166,9 @@ export function ReasoningPanel({ reasoning, isProcessing, isComplete, onComplete
                 <span
                   className={cn(
                     "text-sm",
-                    step.result === "pass" && "text-slate-300",
+                    step.result === "pass" && "text-foreground/80",
                     step.result === "fail" && "text-red-300",
-                    step.result === "warning" && "text-yellow-300"
+                    step.result === "warning" && "text-amber-300"
                   )}
                 >
                   {step.text}
@@ -177,9 +177,9 @@ export function ReasoningPanel({ reasoning, isProcessing, isComplete, onComplete
             ))}
 
             {isProcessing && currentStep < (reasoning?.steps.length || 0) && (
-              <div className="flex items-center gap-3 rounded-lg border border-slate-700/50 bg-slate-800/50 p-3">
-                <Loader2 className="h-4 w-4 animate-spin text-blue-400" />
-                <span className="text-sm text-blue-300">Processing...</span>
+              <div className="flex items-center gap-3 rounded-lg border border-aktia/50 bg-card/50 p-3">
+                <Loader2 className="h-4 w-4 animate-spin text-aktia-gold" />
+                <span className="text-sm text-aktia-gold">Processing...</span>
               </div>
             )}
           </div>
@@ -188,15 +188,15 @@ export function ReasoningPanel({ reasoning, isProcessing, isComplete, onComplete
 
       {/* Risk Score */}
       {showScore && reasoning && (
-        <div className="mt-4 border-t border-slate-700 pt-4">
-          <div className="rounded-lg border border-slate-700 bg-slate-800/50 p-4">
+        <div className="mt-4 border-t border-border pt-4">
+          <div className="rounded-lg border border-border bg-card/50 p-4">
             <div className="mb-3 flex items-center justify-between">
-              <span className="text-sm font-medium text-slate-400">Risk Score</span>
+              <span className="text-sm font-medium text-muted-foreground">Risk Score</span>
               <span className={cn("text-2xl font-bold", getScoreColor(reasoning.risk_score))}>
                 {reasoning.risk_score}/100
               </span>
             </div>
-            <div className="mb-3 h-2 overflow-hidden rounded-full bg-slate-700">
+            <div className="mb-3 h-2 overflow-hidden rounded-full bg-secondary">
               <div
                 className={cn("h-full transition-all duration-1000", getScoreBg(reasoning.risk_score))}
                 style={{ width: `${reasoning.risk_score}%` }}

@@ -53,24 +53,24 @@ export function TerminalPanel({ state, payload, onComplete }: TerminalPanelProps
 
   return (
     <div className="flex h-full flex-col">
-      <div className="mb-4 border-b border-slate-700 pb-3">
-        <h2 className="text-lg font-semibold text-white">Payment Terminal</h2>
-        <p className="text-sm text-slate-400">POS Hardware Emulator</p>
+      <div className="mb-4 border-b border-border pb-3">
+        <h2 className="text-lg font-semibold text-foreground">Payment Terminal</h2>
+        <p className="text-sm text-muted-foreground">POS Hardware Emulator</p>
       </div>
 
       {/* Terminal Screen */}
-      <Card className="mb-4 border-2 border-slate-600 bg-slate-900">
+      <Card className="mb-4 border-2 border-aktia bg-card">
         <CardContent className="p-0">
-          <div className="rounded-t-lg bg-slate-800 px-4 py-2">
+          <div className="rounded-t-lg bg-secondary px-4 py-2">
             <div className="flex items-center justify-between">
-              <span className="text-xs text-slate-400">VERIFONE</span>
+              <span className="text-xs text-muted-foreground">VERIFONE</span>
               <div className="flex gap-1">
-                <div className="h-2 w-2 rounded-full bg-green-500" />
-                <div className="h-2 w-2 rounded-full bg-yellow-500" />
+                <div className="h-2 w-2 rounded-full bg-emerald-500" />
+                <div className="h-2 w-2 rounded-full bg-aktia-gold" />
               </div>
             </div>
           </div>
-          <div className="flex min-h-[120px] flex-col items-center justify-center bg-[#1a2332] p-6 font-mono">
+          <div className="flex min-h-[120px] flex-col items-center justify-center bg-aktia-navy p-6 font-mono">
             {isProcessing && (
               <div className="mb-2 flex gap-1">
                 <span className="h-2 w-2 animate-pulse rounded-full bg-yellow-400" style={{ animationDelay: "0ms" }} />
@@ -87,11 +87,11 @@ export function TerminalPanel({ state, payload, onComplete }: TerminalPanelProps
               </span>
             )}
           </div>
-          <div className="grid grid-cols-3 gap-1 bg-slate-800 p-2">
+          <div className="grid grid-cols-3 gap-1 bg-secondary p-2">
             {[1, 2, 3, 4, 5, 6, 7, 8, 9, "*", 0, "#"].map((key) => (
               <div
                 key={key}
-                className="flex h-8 items-center justify-center rounded bg-slate-700 text-sm font-medium text-slate-300"
+                className="flex h-8 items-center justify-center rounded bg-muted text-sm font-medium text-muted-foreground"
               >
                 {key}
               </div>
@@ -103,18 +103,18 @@ export function TerminalPanel({ state, payload, onComplete }: TerminalPanelProps
       {/* Raw JSON Payload */}
       <div className="flex-1 overflow-hidden">
         <div className="mb-2 flex items-center justify-between">
-          <h3 className="text-sm font-medium text-slate-300">Raw Transaction Payload</h3>
+          <h3 className="text-sm font-medium text-foreground/80">Raw Transaction Payload</h3>
           {showPayload && (
-            <span className="rounded bg-green-900/50 px-2 py-0.5 text-xs text-green-400">TRANSMITTED</span>
+            <span className="rounded bg-emerald-900/50 px-2 py-0.5 text-xs text-emerald-400">TRANSMITTED</span>
           )}
         </div>
-        <div className="h-[calc(100%-2rem)] overflow-auto rounded-lg border border-slate-700 bg-slate-900/50 p-3">
+        <div className="h-[calc(100%-2rem)] overflow-auto rounded-lg border border-border bg-card/50 p-3">
           {payload && showPayload ? (
-            <pre className="text-xs leading-relaxed text-slate-300">
+            <pre className="text-xs leading-relaxed text-foreground/70">
               <code>{JSON.stringify(payload, null, 2)}</code>
             </pre>
           ) : (
-            <div className="flex h-full items-center justify-center text-sm text-slate-500">
+            <div className="flex h-full items-center justify-center text-sm text-muted-foreground">
               {state === "idle" ? "Waiting for transaction..." : "Generating payload..."}
             </div>
           )}

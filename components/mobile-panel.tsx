@@ -85,21 +85,21 @@ export function MobilePanel({ mobile, isVisible, onVerificationComplete, onFraud
 
   return (
     <div className="flex h-full flex-col">
-      <div className="mb-4 border-b border-slate-700 pb-3">
-        <h2 className="text-lg font-semibold text-white">Aktia Mobile</h2>
-        <p className="text-sm text-slate-400">Customer Notification</p>
+      <div className="mb-4 border-b border-border pb-3">
+        <h2 className="text-lg font-semibold text-foreground">Aktia Mobile</h2>
+        <p className="text-sm text-muted-foreground">Customer Notification</p>
       </div>
 
       {/* Phone Frame */}
       <div className="flex flex-1 items-center justify-center">
         <div className="relative w-full max-w-[280px]">
           {/* Phone outer frame */}
-          <div className="overflow-hidden rounded-[2.5rem] border-[8px] border-slate-800 bg-slate-800 shadow-2xl">
+          <div className="overflow-hidden rounded-[2.5rem] border-[8px] border-secondary bg-secondary shadow-2xl">
             {/* Dynamic Island */}
             <div className="absolute left-1/2 top-3 z-10 h-6 w-24 -translate-x-1/2 rounded-full bg-black" />
 
             {/* Screen */}
-            <div className="relative min-h-[520px] overflow-hidden rounded-[2rem] bg-[#002E6E]">
+            <div className="relative min-h-[520px] overflow-hidden rounded-[2rem] bg-aktia-navy">
               {/* Status Bar */}
               <div className="flex items-center justify-between px-6 pb-2 pt-10 text-white">
                 <span className="text-sm font-medium">{currentTime}</span>
@@ -113,8 +113,8 @@ export function MobilePanel({ mobile, isVisible, onVerificationComplete, onFraud
               {/* App Header */}
               <div className="border-b border-white/10 px-6 pb-4">
                 <div className="flex items-center gap-2">
-                  <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-white">
-                    <span className="text-sm font-bold text-[#002E6E]">A</span>
+                  <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-aktia-gold">
+                    <span className="text-sm font-bold text-aktia-navy">A</span>
                   </div>
                   <span className="text-lg font-semibold text-white">Aktia</span>
                 </div>
@@ -193,7 +193,7 @@ export function MobilePanel({ mobile, isVisible, onVerificationComplete, onFraud
                             ? "bg-red-500 text-white hover:bg-red-600"
                             : isVerification
                               ? "bg-yellow-500 text-black hover:bg-yellow-400 disabled:opacity-50"
-                              : "bg-white text-[#002E6E] hover:bg-white/90"
+                              : "bg-aktia-gold text-aktia-navy hover:bg-aktia-gold-dark"
                         )}
                       >
                         {mobile.main_action.type === "call" && <Phone className="h-4 w-4" />}
@@ -215,14 +215,14 @@ export function MobilePanel({ mobile, isVisible, onVerificationComplete, onFraud
 
                     {showSuccess && (
                       <button
-                        className="flex w-full items-center justify-center gap-2 rounded-xl bg-white py-3.5 font-semibold text-[#002E6E] transition-all hover:bg-white/90"
+                        className="flex w-full items-center justify-center gap-2 rounded-xl bg-aktia-gold py-3.5 font-semibold text-aktia-navy transition-all hover:bg-aktia-gold-dark"
                       >
                         View Details
                       </button>
                     )}
                     {showDeclined && (
                       <button
-                        className="flex w-full items-center justify-center gap-2 rounded-xl bg-white py-3.5 font-semibold text-[#002E6E] transition-all hover:bg-white/90"
+                        className="flex w-full items-center justify-center gap-2 rounded-xl bg-aktia-gold py-3.5 font-semibold text-aktia-navy transition-all hover:bg-aktia-gold-dark"
                       >
                         Contact Support
                       </button>
@@ -242,7 +242,7 @@ export function MobilePanel({ mobile, isVisible, onVerificationComplete, onFraud
               </div>
 
               {/* Bottom Navigation */}
-              <div className="absolute bottom-0 left-0 right-0 border-t border-white/10 bg-[#001E4E] px-6 py-4">
+              <div className="absolute bottom-0 left-0 right-0 border-t border-white/10 bg-aktia-navy-light px-6 py-4">
                 <div className="flex justify-around">
                   {["Home", "Cards", "Pay", "More"].map((item) => (
                     <div key={item} className="flex flex-col items-center gap-1">
