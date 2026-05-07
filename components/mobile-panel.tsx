@@ -266,7 +266,7 @@ export function MobilePanel({ mobile, isVisible, onVerificationComplete, onFraud
               </div>
 
               {/* Bottom Navigation */}
-              <div className="absolute bottom-20 left-0 right-0 border-t border-white/10 bg-black/20 px-6 py-4">
+              <div className="absolute bottom-0 left-0 right-0 border-t border-white/10 bg-black/20 px-6 py-4">
                 <div className="flex justify-around">
                   {[
                     { label: "Home", icon: Home },
