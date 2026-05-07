@@ -3,28 +3,49 @@
 import { useEffect, useState } from "react"
 import type { PanelRightMobile } from "@/lib/types"
 import { cn } from "@/lib/utils"
-import { Shield, CheckCircle, Phone, ChevronRight, Wifi, Battery, Signal, AlertTriangle, Fingerprint, Loader2, ShieldAlert, XCircle, Home, CreditCard, MoreHorizontal } from "lucide-react"
+import { Shield, CheckCircle, Phone, ChevronRight, Wifi, Battery, Signal, AlertTriangle, Fingerprint, Loader2, ShieldAlert, XCircle } from "lucide-react"
+
+/* Aktia design system nav icons — thin outline, rounded strokes, no fill */
+
+function HomeIcon({ className }: { className?: string }) {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" className={className} aria-hidden="true">
+      <path d="M3 10.5L12 3l9 7.5V21a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V10.5z" />
+      <path d="M9 22V12h6v10" />
+    </svg>
+  )
+}
+
+function CardsIcon({ className }: { className?: string }) {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" className={className} aria-hidden="true">
+      <rect x="2" y="5" width="20" height="14" rx="2" />
+      <line x1="2" y1="10" x2="22" y2="10" />
+      <line x1="6" y1="15" x2="9" y2="15" />
+      <line x1="12" y1="15" x2="15" y2="15" />
+    </svg>
+  )
+}
 
 function PayIcon({ className }: { className?: string }) {
   return (
-    <svg
-      viewBox="0 0 48 48"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2.5"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      className={className}
-      aria-hidden="true"
-    >
-      {/* Coin circle */}
-      <circle cx="28" cy="13" r="9" />
-      {/* Dollar sign vertical */}
-      <line x1="28" y1="9" x2="28" y2="17" />
-      {/* Dollar sign top arc */}
-      <path d="M31 10.5c-1-1-5-1.5-5 1.5s4 2.5 5 3.5 1.5 4-3 4" />
-      {/* Open hand / palm */}
-      <path d="M6 32c0 0 2-4 6-4h10l5 1c2 .5 4 2 5 4l4-2c1.5-.5 3 .5 3 2s-1 2-2 2.5L26 40c-2 1-4 1-6 1H8c-1 0-2-1-2-2v-7z" />
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" className={className} aria-hidden="true">
+      {/* Coin */}
+      <circle cx="14" cy="7" r="5" />
+      <line x1="14" y1="4.5" x2="14" y2="9.5" />
+      <path d="M16 5.5c-.5-.6-2.5-.8-2.5 1s2 1.4 2.5 2-.2 2.5-2.5 2" />
+      {/* Open hand */}
+      <path d="M2 17c0 0 1-2.5 4-2.5h5.5l2.5.5c1 .3 2 1 2.5 2l2-1c.8-.3 1.5.3 1.5 1s-.5 1.2-1 1.5L13 21c-1 .5-2 .5-3 .5H4c-.6 0-1-.5-1-1v-3.5z" />
+    </svg>
+  )
+}
+
+function MoreIcon({ className }: { className?: string }) {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" className={className} aria-hidden="true">
+      <line x1="3" y1="6" x2="21" y2="6" />
+      <line x1="3" y1="12" x2="21" y2="12" />
+      <line x1="3" y1="18" x2="21" y2="18" />
     </svg>
   )
 }
@@ -269,9 +290,11 @@ export function MobilePanel({ mobile, isVisible, onVerificationComplete, onFraud
               <div className="absolute bottom-0 left-0 right-0 z-10 border-t border-white/10 bg-aktia-dark px-6 py-4">
                 <div className="flex justify-around">
                   {[
-                    { label: "Home", icon: Home },
-                    { label: "Cards", icon: CreditCard },
-                  ].map(({ label, icon: Icon }) => (
+                    { label: "Home", Icon: HomeIcon },
+                    { label: "Cards", Icon: CardsIcon },
+                    { label: "Pay", Icon: PayIcon },
+                    { label: "More", Icon: MoreIcon },
+                  ].map(({ label, Icon }) => (
                     <div key={label} className="flex flex-col items-center gap-1">
                       <div className="flex h-8 w-8 items-center justify-center rounded-full bg-white/10">
                         <Icon className="h-4 w-4 text-white/70" />
@@ -279,18 +302,6 @@ export function MobilePanel({ mobile, isVisible, onVerificationComplete, onFraud
                       <span className="text-[10px] text-white/60">{label}</span>
                     </div>
                   ))}
-                  <div className="flex flex-col items-center gap-1">
-                    <div className="flex h-8 w-8 items-center justify-center rounded-full bg-white/10">
-                      <PayIcon className="h-4 w-4 text-white/70" />
-                    </div>
-                    <span className="text-[10px] text-white/60">Pay</span>
-                  </div>
-                  <div className="flex flex-col items-center gap-1">
-                    <div className="flex h-8 w-8 items-center justify-center rounded-full bg-white/10">
-                      <MoreHorizontal className="h-4 w-4 text-white/70" />
-                    </div>
-                    <span className="text-[10px] text-white/60">More</span>
-                  </div>
                 </div>
               </div>
             </div>
