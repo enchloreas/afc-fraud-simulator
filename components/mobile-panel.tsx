@@ -153,7 +153,7 @@ export function MobilePanel({ mobile, isVisible, onVerificationComplete, onFraud
               {/* App Header */}
               <div className="flex-shrink-0 border-b border-white/10 px-6 pb-4">
                 <div className="flex items-center gap-2">
-                  <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-aktia-green">
+                  <div className="flex h-8 w-8 items-center justify-center rounded-lg" style={{ backgroundColor: "lab(78.503 -64.9265 39.7492)" }}>
                     <span className="text-sm font-bold text-white">A</span>
                   </div>
                   <span className="text-lg font-semibold text-white">Aktia TrustControl</span>
@@ -255,7 +255,8 @@ export function MobilePanel({ mobile, isVisible, onVerificationComplete, onFraud
 
                     {showSuccess && (
                       <button
-                        className="flex w-full items-center justify-center gap-2 rounded-xl bg-aktia-green py-3.5 font-semibold text-white transition-all hover:bg-aktia-green-hover"
+                        className="flex w-full items-center justify-center gap-2 rounded-xl py-3.5 font-semibold text-white transition-all"
+                        style={{ backgroundColor: "lab(78.503 -64.9265 39.7492)" }}
                       >
                         View Details
                       </button>
@@ -292,7 +293,7 @@ export function MobilePanel({ mobile, isVisible, onVerificationComplete, onFraud
                     { label: "More", Icon: MoreIcon },
                   ].map(({ label, Icon }) => (
                     <div key={label} className="flex flex-col items-center gap-1.5">
-                      <Icon className="h-5 w-5 text-aktia-green" />
+                      <Icon className="h-5 w-5" style={{ color: "lab(78.503 -64.9265 39.7492)" }} />
                       <span className="text-[10px] font-medium text-white/80">{label}</span>
                     </div>
                   ))}
