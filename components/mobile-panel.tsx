@@ -262,7 +262,8 @@ export function MobilePanel({ mobile, isVisible, onVerificationComplete, onFraud
                     )}
                     {showDeclined && (
                       <button
-                        className="flex w-full items-center justify-center gap-2 rounded-xl bg-aktia-green py-3.5 font-semibold text-white transition-all hover:bg-aktia-green-hover"
+                        className="flex w-full items-center justify-center gap-2 rounded-xl py-3.5 font-semibold text-white transition-all"
+                        style={{ backgroundColor: "lab(63.7053 60.745 31.3109)" }}
                       >
                         Contact Support
                       </button>
