@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react"
 import type { PanelRightMobile } from "@/lib/types"
 import { cn } from "@/lib/utils"
-import { Shield, CheckCircle, Phone, ChevronRight, Wifi, Battery, Signal, AlertTriangle, Fingerprint, Loader2, ShieldAlert, XCircle } from "lucide-react"
+import { Shield, CheckCircle, Phone, ChevronRight, Wifi, Battery, Signal, AlertTriangle, Fingerprint, Loader2, ShieldAlert, XCircle, Home, CreditCard, Send, MoreHorizontal } from "lucide-react"
 import type { TerminalState } from "@/lib/types"
 
 interface MobilePanelProps {
@@ -244,10 +244,17 @@ export function MobilePanel({ mobile, isVisible, onVerificationComplete, onFraud
               {/* Bottom Navigation */}
               <div className="absolute bottom-0 left-0 right-0 border-t border-white/10 bg-black/20 px-6 py-4">
                 <div className="flex justify-around">
-                  {["Home", "Cards", "Pay", "More"].map((item) => (
-                    <div key={item} className="flex flex-col items-center gap-1">
-                      <div className="h-5 w-5 rounded-full bg-white/20" />
-                      <span className="text-[10px] text-white/60">{item}</span>
+                  {[
+                    { label: "Home", icon: Home },
+                    { label: "Cards", icon: CreditCard },
+                    { label: "Pay", icon: Send },
+                    { label: "More", icon: MoreHorizontal },
+                  ].map(({ label, icon: Icon }) => (
+                    <div key={label} className="flex flex-col items-center gap-1">
+                      <div className="flex h-8 w-8 items-center justify-center rounded-full bg-white/10">
+                        <Icon className="h-4 w-4 text-white/70" />
+                      </div>
+                      <span className="text-[10px] text-white/60">{label}</span>
                     </div>
                   ))}
                 </div>
