@@ -29,22 +29,33 @@ export function Simulator() {
   const isMobile = useIsMobile()
 
   const runSimulation = useCallback(() => {
-    const output = generateScenarioData(selectedScenario)
-    setSimulatorOutput(output)
-    setPhase("terminal")
-    setIsProcessing(true)
+    // Always reset state before starting a new simulation so re-running
+    // without clicking Reset never causes stale state or a freeze.
+    setPhase("idle")
+    setTerminalState("idle")
+    setSimulatorOutput(null)
+    setIsProcessing(false)
 
-    // Terminal animation sequence
-    setTerminalState("insert_card")
-    setTimeout(() => setTerminalState("reading_card"), 800)
-    setTimeout(() => setTerminalState("authorizing"), 1600)
-    setTimeout(() => setTerminalState("processing"), 2400)
+    // Use a short timeout to let the reset flush through React's state
+    // before starting the new simulation sequence.
     setTimeout(() => {
-      const verdictColor = output.panel_center_reasoning.verdict_color
-      // Yellow verdict shows as "processing" state on terminal (pending review)
-      setTerminalState(verdictColor === "green" ? "approved" : verdictColor === "yellow" ? "processing" : "declined")
-      setPhase("reasoning")
-    }, 3200)
+      const output = generateScenarioData(selectedScenario)
+      setSimulatorOutput(output)
+      setPhase("terminal")
+      setIsProcessing(true)
+
+      // Terminal animation sequence
+      setTerminalState("insert_card")
+      setTimeout(() => setTerminalState("reading_card"), 800)
+      setTimeout(() => setTerminalState("authorizing"), 1600)
+      setTimeout(() => setTerminalState("processing"), 2400)
+      setTimeout(() => {
+        const verdictColor = output.panel_center_reasoning.verdict_color
+        // Yellow verdict shows as "processing" state on terminal (pending review)
+        setTerminalState(verdictColor === "green" ? "approved" : verdictColor === "yellow" ? "processing" : "declined")
+        setPhase("reasoning")
+      }, 3200)
+    }, 50)
   }, [selectedScenario])
 
   const handleReasoningComplete = useCallback(() => {
