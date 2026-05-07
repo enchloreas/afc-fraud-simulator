@@ -75,7 +75,7 @@ export function Simulator() {
   const isRunning = phase !== "idle" && phase !== "complete"
 
   return (
-    <div className="flex h-screen flex-col bg-background">
+    <div className="flex h-screen flex-col overflow-auto bg-background">
       {/* Header */}
       <header className="border-b border-border bg-card px-4 py-3 md:px-6 md:py-4">
         {/* Desktop Header Layout */}
