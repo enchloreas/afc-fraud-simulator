@@ -94,7 +94,7 @@ export function MobilePanel({ mobile, isVisible, onVerificationComplete, onFraud
       <div className="flex flex-1 items-center justify-center">
         <div className="relative w-full max-w-[280px]">
           {/* Phone outer frame */}
-          <div className="overflow-hidden rounded-[2.5rem] border-[8px] border-gray-800 bg-gray-800 shadow-2xl">
+          <div className="overflow-hidden rounded-[2.5rem] border-[8px] border-gray-800 shadow-2xl" style={{ backgroundColor: "oklab(0.981998 -0.0164295 0.00739342 / 0.5)" }}>
             {/* Dynamic Island */}
             <div className="absolute left-1/2 top-3 z-10 h-6 w-24 -translate-x-1/2 rounded-full bg-black" />
 
@@ -121,7 +121,7 @@ export function MobilePanel({ mobile, isVisible, onVerificationComplete, onFraud
               </div>
 
               {/* Content Area */}
-              <div className="p-6">
+              <div className="p-6" style={{ color: "oklab(0.981998 -0.0164295 0.00739342 / 0.5)" }}>
                 {!showContent || !mobile ? (
                   <div className="flex flex-col items-center justify-center py-12">
                     <div className="mb-4 h-12 w-12 animate-pulse rounded-full bg-white/20" />
